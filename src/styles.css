@@ -1,0 +1,73 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: #0F2A44; /* Blue background */
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Logo */
+.navbar .logo {
+  height: 50px;
+  cursor: pointer;
+}
+
+/* Links container */
+.nav-links {
+  display: flex;
+  gap: 0; /* separators handle spacing */
+}
+
+/* Links */
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 10px;
+  position: relative; /* needed for separator */
+  transition: background-color 0.2s;
+  border-radius: 4px;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Active page highlight */
+.nav-links a.active {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Separator "|" between links, outside link background */
+.nav-links a:not(:last-child)::after {
+  content: "|";
+  color: white;
+  position: absolute;
+  right: 1px;         /* adjust spacing from link */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* does not interfere with hover */
+}
+
+/* Responsive: stack links on smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Remove separators on stacked links */
+  .nav-links a:not(:last-child)::after {
+    content: "";
+    margin: 0;
+  }
+}

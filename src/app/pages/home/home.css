@@ -202,4 +202,98 @@
       padding: 40px 20px;
     }
   }
+
+  /* =========================
+   FEATURE SECTIONS (Alternating Cards)
+========================= */
+.feature-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin: 50px 40px; /* spacing similar to your other sections */
+}
+
+/* Each feature row */
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Reverse layout for alternating sections */
+.feature.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Feature card styling */
+/* Feature card with image */
+.feature-card {
+  flex: 1;
+  height: 200px;
+  background-color: #0b2a45; /* fallback */
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative; /* for overlay */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+/* Title overlay on the image */
+.feature-card .card-title {
+  background: rgba(0,0,0,0.5); /* semi-transparent overlay */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Hover effect for feature cards */
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+/* Feature description styling */
+.feature-description {
+  flex: 1;
+}
+
+.feature-description h3 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  color: #0b2a45;
+}
+
+.feature-description p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #222;
+}
+
+/* Responsive: stack vertically on small screens */
+@media (max-width: 768px) {
+  .feature, .feature.reverse {
+    flex-direction: column;
+    text-align: center;
+  }
   
+  .feature-card,
+  .feature-description {
+    width: 100%;
+  }
+}
+  
+
