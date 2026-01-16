@@ -1,0 +1,96 @@
+.contact-page {
+    background: #f5f6f8;
+    padding: 40px 20px;
+  }
+  
+  /* Header */
+  .contact-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .contact-header h1 {
+    font-size: 36px;
+    color: #0b2a44;
+  }
+  
+  .contact-header p {
+    color: #555;
+  }
+  
+  /* Layout */
+  .contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1100px;
+    margin: auto;
+  }
+  
+  /* Cards */
+  .contact-card,
+  .info-card {
+    background: #0b2a44;
+    padding: 30px;
+    border-radius: 8px;
+    color: white;
+  }
+  
+  /* Form */
+  .contact-card input,
+  .contact-card textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .contact-card button {
+    width: 100%;
+    padding: 12px;
+    background: #c0392b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* Info */
+  .info-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .icon {
+    font-size: 22px;
+    color: #e74c3c;
+  }
+  
+  /* Why Choose Us */
+  .why-choose {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    background: #0b2a44;
+    padding: 25px;
+    border-radius: 8px;
+    color: white;
+  }
+  
+  .why-choose ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .why-choose li {
+    margin-bottom: 8px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .contact-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
