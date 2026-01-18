@@ -1,8 +1,9 @@
 
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+    overflow-x: hidden; /* This kills the horizontal scrollbar */
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Navbar container */

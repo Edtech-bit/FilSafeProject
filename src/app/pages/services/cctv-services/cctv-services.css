@@ -1,60 +1,83 @@
-/* CSS for Hero */
+/* CSS for hero */
 .hero-container {
-    display: flex;
     width: 100%;
-    height: 400px; /* You can set your preferred height here */
-    background-color: #2b4560; /* Matches the sky/theme */
+    height: 500px; 
+    position: relative; /* This allows the text to sit "on top" of the container */
     overflow: hidden;
 }
 
 .hero-image-side {
-    flex: 0 0 50%; /* Locks this to exactly 50% width */
+    width: 100%; /* Changed from 50% to 100% to fill the space */
     height: 100%;
-    position: relative;
 }
 
 .hero-image-side img {
     width: 100%;
     height: 100%;
-    /* 1. THE SECRET: 'object-fit' works like background-size 
-       but is easier to adjust for 50/50 splits */
-    object-fit: cover; 
-    /* 2. THE FOCUS: Adjust this % to show more of the camera lens */
-    object-position: 20% top; 
+    object-fit: cover;
+    object-position:  center 30%; 
+    /* Optional: adds a dark tint so the white text is easier to read */
+    filter: brightness(0.7); 
 }
 
 .hero-text-side {
-    flex: 0 0 50%; /* Locks this to exactly 50% width */
+    position: absolute; /* Takes the text out of the normal flow */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #2b4560; /* Solid color side */
-    padding: 20px;
+    align-items: center;    /* Vertically centers text */
+    justify-content: flex-end; /* Pushes text to the right like your image */
+    padding-right: 10%;     /* Keeps the text away from the very edge */
+    box-sizing: border-box;
+    pointer-events: none;   /* Ensures users can still right-click the image if needed */
 }
 
 .hero-text-side h1 {
     color: #ffffff;
     font-family: 'Inter', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-size: clamp(2.5rem, 8vw, 6rem); /* Made slightly larger for the full width */
     font-weight: 800;
     margin: 0;
-    text-align: center;
+    text-align: right;
     line-height: 1.1;
 }
 
 /* CSS for Contents */
 /* CSS for installation */
-.content {
-    background-color: #0d1b2a; /* Deep dark blue from your Figma */
+.content-header {
+    background-color: #0d1b2a;
     color: #ffffff;
-    padding: 60px 10%;
+    padding: 60px 10% 20px 10%; /* Bottom padding reduced to bridge to Installation */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.content-header h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0;
     font-family: 'Inter', sans-serif;
 }
 
-.content h2 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 40px;
+.installation {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    
+    background-color: #0d1b2a; /* Same dark blue */
+    color: #ffffff;
+    padding: 40px 10% 80px 10%; /* Matching repairs padding */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns left */
+    text-align: left;
+    box-sizing: border-box;
 }
 
 .installation h3 {
@@ -95,9 +118,27 @@
     top: -2px;
 }
 
+.installation h3, .repairs h3 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    font-family: 'Inter', sans-serif;
+}
+
+.installation p, .repairs p {
+    max-width: 600px;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.installation ul, .repairs ul {
+    font-family:'Inter', sans-serif;
+}
+
 /* CSS for repairs */
 .repairs {
-    /* 1. FORCE FULL WIDTH */
     width: 100vw; 
     position: relative;
     left: 50%;
@@ -105,14 +146,13 @@
     margin-left: -50vw;
     margin-right: -50vw;
 
-    /* 2. STYLING */
     background-color: #ffffff; 
-    padding: 80px 10%; /* Vertically 80px, horizontally 10% for content alignment */
+    padding: 80px 10%; 
     display: flex;
     flex-direction: column;
-    align-items: flex-end; 
+    align-items: flex-end; /* Aligns right */
     text-align: right;
-    box-sizing: border-box; /* Ensures padding doesn't add to the width */
+    box-sizing: border-box;
 }
 
 .repairs h3 {
@@ -148,6 +188,7 @@
     font-weight: 600;
     margin-bottom: 15px;
     font-size: 1.2rem;
+    color:#000000;
 }
 
 .repairs li {
