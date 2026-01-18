@@ -1,1 +1,43 @@
-<p>products works!</p>
+<section class="products-section">
+  <h2>Our Products</h2>
+  <p class="product-sub">Explore our security solutions by category</p>
+
+  <div *ngFor="let category of categories" 
+       class="category-section" 
+       [ngClass]="category.name.toLowerCase()">
+    
+    <h3>{{ category.name }}</h3>
+
+    <div class="slider-wrapper">
+      <button class="slider-btn left" (click)="scrollLeft(slider)">&#10094;</button>
+
+      <div #slider class="slider-container">
+        <div
+          class="product-card"
+          *ngFor="let product of category.products"
+          (click)="openModal(product.brochure)"
+        >
+          <img [src]="product.img" [alt]="product.name" />
+          <div class="card-content">
+            <h4>{{ product.name }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <button class="slider-btn right" (click)="scrollRight(slider)">&#10095;</button>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">✖</button>
+    <iframe
+      *ngIf="selectedBrochure"
+      [src]="selectedBrochure"
+      width="100%"
+      height="600px"
+      frameborder="0"
+    ></iframe>
+  </div>
+</div>

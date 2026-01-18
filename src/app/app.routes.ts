@@ -13,10 +13,6 @@ import { CctvServices } from './pages/services/cctv-services/cctv-services';
 import { AlarmServices } from './pages/services/alarm-services/alarm-services';
 import { VaultServices } from './pages/services/vault-services/vault-services';
 
-// Brochures
-import { CctvBrochure } from './pages/brochures/cctv-brochure/cctv-brochure';
-import { AlarmBrochure } from './pages/brochures/alarm-brochure/alarm-brochure';
-import { VaultBrochure } from './pages/brochures/vault-brochure/vault-brochure';
 
 export const routes: Routes = [
   // Main pages (these match your navbar)
@@ -30,11 +26,6 @@ export const routes: Routes = [
   { path: 'services/cctv', component: CctvServices },
   { path: 'services/alarm', component: AlarmServices },
   { path: 'services/vault', component: VaultServices },
-
-  // Brochure pages
-  { path: 'brochures/cctv', component: CctvBrochure },
-  { path: 'brochures/alarm', component: AlarmBrochure },
-  { path: 'brochures/vault', component: VaultBrochure },
 
   // Fallback route (any unknown path)
   { path: '**', redirectTo: '', pathMatch: 'full' }

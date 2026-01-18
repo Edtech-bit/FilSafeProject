@@ -1,82 +1,92 @@
-
 <div class="contact-page">
+  <div class="contact-header">
+    <h1>Contact Us</h1>
+    <p>Get in touch with our security experts today</p>
+  </div>
 
-    <!-- Header -->
-    <div class="contact-header">
-      <h1>Contact Us</h1>
-      <p>Get in touch with our security experts today</p>
+  <div class="contact-container">
+    <div class="contact-card">
+      <h3>Send us a Message</h3>
+      <form (submit)="sendEmail($event)" #contactForm="ngForm">
+        <label>Full name</label>
+        <input type="text" name="from_name" [(ngModel)]="formData.from_name" required placeholder="John Doe" />
+        
+        <label>Email Address</label>
+        <input type="email" name="reply_to" [(ngModel)]="formData.reply_to" placeholder="example@email.com" required />
+        
+        <label>Phone Number</label>
+        <input type="tel" name="phone" [(ngModel)]="formData.phone" placeholder="+63 123 456 7890" required />
+        
+        <label>Message</label>
+        <textarea name="message" [(ngModel)]="formData.message" rows="6" placeholder="How can we help you?" required></textarea>
+
+        <button type="submit" [disabled]="isSending || !contactForm.form.valid">
+          {{ isSending ? 'Sending...' : 'Send Message' }}
+        </button>
+      </form>
     </div>
-  
-    <!-- Content -->
-    <div class="contact-container">
-  
-      <!-- Contact Form -->
-      <div class="contact-card">
-        <h3>Contact Us</h3>
-  
-        <form (ngSubmit)="onSubmit()">
-          <input type="text" placeholder="Full name" required />
-          <input type="email" placeholder="Email Address" required />
-          <input type="tel" placeholder="Phone Number" required />
-          <textarea rows="5" placeholder="Message"></textarea>
-  
-          <button type="submit">Send Message</button>
-        </form>
-      </div>
-  
-      <!-- Contact Info -->
+
+    <div class="contact-info">
       <div class="info-card">
         <h3>Contact Information</h3>
-  
+        
         <div class="info-item">
-          <span class="icon">📍</span>
-          <div>
+          <div class="icon-circle">
+            <span class="icon"><img src="/pin-icon.png" alt="Pin Icon"></span> 
+          </div>
+          <div class="info-text">
             <strong>Address</strong>
-            <p>L&S Subdivsion, Angeles City<br>Philippines</p>
+            <p>Downtown QC, 16<br>Quezon City, Philippines</p>
           </div>
         </div>
-  
+
         <div class="info-item">
-          <span class="icon">📞</span>
-          <div>
+          <div class="icon-circle">
+            <span class="icon"><img src="/phone-icon.png" alt="Phone Icon"></span>
+          </div>
+          <div class="info-text">
             <strong>Phone</strong>
-            <p>+63 912 345 7890<br>+63 998 654 3210</p>
+            <p>+63 123 456 7890<br>+63 987 654 3210</p>
           </div>
         </div>
-  
+
         <div class="info-item">
-          <span class="icon">✉️</span>
-          <div>
+          <div class="icon-circle">
+            <span class="icon"><img src="/email-icon.png" alt="Email Icon"></span>
+          </div>
+          <div class="info-text">
             <strong>Email</strong>
-            <p>filsafe@gmail.com<br>filsafe.support@gmail.com</p>
+            <p>FilSafe@gmail.com<br>FilSafeSupport@gmail.com</p>
           </div>
         </div>
-  
+
         <div class="info-item">
-          <span class="icon">⏰</span>
-          <div>
+          <div class="icon-circle">
+            <span class="icon"><img src="/clock-icon.png" alt="Clock Icon"></span>
+          </div>
+          <div class="info-text">
             <strong>Business Hours</strong>
-            <p>
-              Mon–Fri: 7:00 AM – 10:00 PM<br>
-              Sat–Sun: 7:00 AM – 9:00 PM
-            </p>
+            <p>Mon – Sun: 7:00 AM – 11:00 PM</p>
           </div>
         </div>
       </div>
-  
+
+      <div class="why-choose">
+        <h3>Why Choose Us?</h3>
+        <ul>
+          <li>24/7 Emergency Support</li>
+          <li>Certified Security Professionals</li>
+          <li>Quality Products & Installation</li>
+          <li>Competitive Pricing</li>
+          <li>Comprehensive Warranty Coverage</li>
+        </ul>
+      </div>
     </div>
-  
-    <!-- Why Choose Us -->
-    <div class="why-choose">
-      <h3>Why Choose Us?</h3>
-      <ul>
-        <li>✔ 24/7 Emergency Support</li>
-        <li>✔ Certified Security Professionals</li>
-        <li>✔ Quality Products & Installation</li>
-        <li>✔ Competitive Pricing</li>
-        <li>✔ Comprehensive Warranty Coverage</li>
-      </ul>
-    </div>
-  
   </div>
-  
+</div>
+
+<form (submit)="sendEmail($event)" #contactForm="ngForm">
+  <button type="submit" [disabled]="isSending || !contactForm.form.valid">
+    {{ isSending ? 'Sending...' : 'Send Message' }}
+  </button>
+</form>
