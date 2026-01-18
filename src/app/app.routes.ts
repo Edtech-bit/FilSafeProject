@@ -12,6 +12,7 @@ import { About } from './pages/about/about';
 import { CctvServices } from './pages/services/cctv-services/cctv-services';
 import { AlarmServices } from './pages/services/alarm-services/alarm-services';
 import { VaultServices } from './pages/services/vault-services/vault-services';
+import { Vaults } from './blog/vaults/vaults';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'services', component: Services },
   { path: 'contact', component: Contact },
   { path: 'about', component: About },
+  { path: 'blog/vaults', component: Vaults},
 
   // Services subpages
   { path: 'services/cctv', component: CctvServices },

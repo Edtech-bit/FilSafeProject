@@ -295,5 +295,31 @@
     width: 100%;
   }
 }
-  
+
+/* =========================
+   BLOG PREVIEW STYLING
+========================= */
+
+.blog-preview p {
+  margin-bottom: 14px;
+  color: #444;
+}
+
+.read-more-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 18px;
+  background: #0b2a45;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.read-more-btn:hover {
+  background: #08304f;
+  transform: translateY(-2px);
+}
+
 
