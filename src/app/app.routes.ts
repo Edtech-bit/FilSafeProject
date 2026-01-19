@@ -8,12 +8,14 @@ import { Services } from './pages/services/services';
 import { Contact } from './pages/contact/contact';
 import { About } from './pages/about/about';
 
+// IMPORT THE NEW DYNAMIC COMPONENT
+// Note: Ensure your file is named 'blog-detail.ts' inside that folder
+import { BlogDetail } from './pages/blog-detail/blog-detail'; 
+
 // Services subpages
 import { CctvServices } from './pages/services/cctv-services/cctv-services';
 import { AlarmServices } from './pages/services/alarm-services/alarm-services';
 import { VaultServices } from './pages/services/vault-services/vault-services';
-import { Vaults } from './blog/vaults/vaults';
-
 
 export const routes: Routes = [
   // Main pages (these match your navbar)
@@ -22,7 +24,12 @@ export const routes: Routes = [
   { path: 'services', component: Services },
   { path: 'contact', component: Contact },
   { path: 'about', component: About },
-  { path: 'blog/vaults', component: Vaults},
+  
+  /** * DYNAMIC BLOG ROUTE
+   * This handles any ID you throw at it (e.g., /blog/vaults, /blog/alarms).
+   * It uses the BlogDetailComponent as a master template.
+   */
+  { path: 'blog/:id', component: BlogDetail },
 
   // Services subpages
   { path: 'services/cctv', component: CctvServices },

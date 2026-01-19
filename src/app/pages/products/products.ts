@@ -16,29 +16,19 @@ export class Products {
       products: [
         { name: 'Vault 1', img: '/Vault1.JPG', brochure: '/Vault1.pdf' },
         { name: 'Vault 2', img: '/Vault2.JPG', brochure: '/Vault2.pdf' },
-        { name: 'Vault 1', img: '/Vault1.JPG', brochure: '/Vault1.pdf' },
-        { name: 'Vault 2', img: '/Vault2.JPG', brochure: '/Vault2.pdf' },
-        { name: 'Vault 1', img: '/Vault1.JPG', brochure: '/Vault1.pdf' },
-        { name: 'Vault 2', img: '/Vault2.JPG', brochure: '/Vault2.pdf' },
-        { name: 'Vault 1', img: '/Vault1.JPG', brochure: '/Vault1.pdf' },
-        { name: 'Vault 2', img: '/Vault2.JPG', brochure: '/Vault2.pdf' },
-        { name: 'Vault 3', img: '/Vault3.JPG', brochure: '/Vault3.pdf' }
+      
       ]
     },
     {
       name: 'CCTV',
       products: [
-        { name: 'CCTV 1', img: '/CCTV1.JPG', brochure: '/CCTV1.pdf' },
-        { name: 'CCTV 2', img: '/CCTV2.JPG', brochure: '/CCTV2.pdf' },
-        { name: 'CCTV 3', img: '/CCTV3.JPG', brochure: '/CCTV3.pdf' }
+        
       ]
     },
     {
       name: 'Alarms',
       products: [
-        { name: 'Alarm 1', img: '/Alarm1.JPG', brochure: '/Alarm1.pdf' },
-        { name: 'Alarm 2', img: '/Alarm2.JPG', brochure: '/Alarm2.pdf' },
-        { name: 'Alarm 3', img: '/Alarm3.JPG', brochure: '/Alarm3.pdf' }
+
       ]
     }
   ];

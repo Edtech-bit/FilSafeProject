@@ -7,6 +7,18 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  styleUrls: ['./home.css']
 })
-export class Home {}
+// Change 'HomeComponent' to 'Home' here
+export class Home { 
+
+  scrollToServices() {
+    const element = document.getElementById('services');
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  }
+}

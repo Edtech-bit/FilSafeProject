@@ -1,95 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FilSafe Enterprises</title>
+<section class="hero" style="background-image: url('/HomeBanner.jpg')">
+  <div class="hero-overlay">
+    <div class="hero-badge">Trusted Security Since 2015</div>
+    <h1>Keeping You Safe, Every Step of the Way.</h1>
+    <p class="hero-subtitle">Comprehensive Security Solutions for Homes and Businesses.</p>
+    <button class="primary-cta" (click)="scrollToServices()">Explore Our Solutions</button>
+  </div>
+</section>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="home.css" />
-</head>
-<body>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-overlay">
-      <h1>Keeping You Safe, Every Step of the Way.</h1>
-    </div>
+<section class="intro-section">
   </section>
 
-  <!-- SERVICES -->
-  <section class="services">
-    <h2>Our Services</h2>
-    <div class="service-grid">
-
-      <!-- NORMAL SERVICE CARDS -->
-      <div class="service-card">Premium Vaults</div>
-      <div class="service-card">CCTV Systems</div>
-      <div class="service-card">Intrusion Alarms</div>
-      <div class="service-card">Installation &amp; Setup</div>
-      <div class="service-card">Maintenance</div>
-      <div class="service-card">Consultation</div>
-
-    </div>
-  </section>
-
-  <!-- FEATURE / BLOG SECTIONS -->
-  <section class="feature-sections">
-
-    <!-- Premium Vaults Blog -->
-    <div class="feature">
-      <div class="feature-card" style="background-image: url('/vaultblog.jpg')">
-      </div>
-
-      <div class="feature-description blog-preview">
-        <h3>High-Security Vault Solutions</h3>
-
-        <p>
-          Protecting valuable assets demands more than a standard safe. FilSafe premium vaults are engineered to secure important documents, cash, jewelry, and sensitive items for both residential and commercial properties.
-        </p>
-
-        <p>
-          Our vaults feature fire-resistant construction and advanced locking systems, designed to withstand theft attempts, fire hazards, and structural failures. With FilSafe, you get unmatched protection and peace of mind, knowing your most valuable assets are fully secure.
-        </p>
-
-        <a routerLink="/blog/vaults" class="read-more-btn">
-          Read More →
-        </a>        
-      </div>
+<section class="home-services">
+  <div class="container">
+    <div class="section-title">
+      <span class="badge">Comprehensive Solutions</span>
+      <h2>Our Expert Services</h2>
     </div>
 
-    <!-- CCTV -->
-    <div class="feature reverse">
-      <div class="feature-card" style="background-image: url('/assets/cctv.jpg')">
-        <div class="card-title">CCTV Systems</div>
+    <div class="bento-grid">
+      <div class="bento-item main-tile cctv-home" routerLink="/services/cctv">
+        <div class="tile-content">
+          <h3>CCTV Systems</h3>
+          <p>Advanced Surveillance</p>
+        </div>
       </div>
 
-      <div class="feature-description">
-        <h3>24/7 Surveillance</h3>
-        <p>
-          Discover the benefits of state-of-the-art CCTV systems designed
-          to monitor and protect your property around the clock.
-        </p>
+      <div class="bento-item main-tile alarm-home" routerLink="/services/alarm">
+        <div class="tile-content">
+          <h3>Intrusion Alarms</h3>
+          <p>Instant Protection</p>
+        </div>
+      </div>
+
+      <div class="bento-item main-tile vault-home" routerLink="/services/vault">
+        <div class="tile-content">
+          <h3>Premium Vaults</h3>
+          <p>Secure Asset Storage</p>
+        </div>
+      </div>
+
+      <div class="bento-item support-tile">
+        <div class="support-content">
+          <h4>Installation & Setup</h4>
+          <p>Expert onsite configuration.</p>
+        </div>
+      </div>
+
+      <div class="bento-item support-tile">
+        <div class="support-content">
+          <h4>Maintenance</h4>
+          <p>24/7 system health checks.</p>
+        </div>
+      </div>
+
+      <div class="bento-item support-tile">
+        <div class="support-content">
+          <h4>Consultation</h4>
+          <p>Custom security audits.</p>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Intrusion Alarms -->
-    <div class="feature">
-      <div class="feature-card" style="background-image: url('/assets/alarm.jpg')">
-        <div class="card-title">Intrusion Alarms</div>
-      </div>
+<section class="premium-services" id="services">
+  <div class="section-header">
+    <h2>Our Specialized Solutions</h2>
+    <div class="header-line"></div>
+  </div>
 
-      <div class="feature-description">
-        <h3>Protect Against Intruders</h3>
-        <p>
-          Learn how our intrusion alarm systems provide instant alerts and
-          reliable protection against unauthorized access.
-        </p>
-      </div>
+  <div class="split-row">
+    <div class="split-image" style="background-image: url('/cctvBlog.jpg')"></div>
+    <div class="split-text">
+      <span class="service-number">01</span>
+      <h3>Maximize Safety with CCTV</h3>
+      <p>Integrate 4K Ultra-HD cameras with remote mobile access for total visibility. Our AI detection ensures you only get alerted when it truly matters.</p>
+      <a routerLink="/blog/cctv-systems" class="outline-btn">Read More</a>
     </div>
+  </div>
 
-  </section>
+  <div class="split-row reverse">
+    <div class="split-image" style="background-image: url('/vaultblog.jpg')"></div>
+    <div class="split-text">
+      <span class="service-number">02</span>
+      <h3>High-Security Vault Solutions</h3>
+      <p>Engineered to protect your most valuable assets. Featuring fire-resistant construction and advanced locking mechanisms for ultimate physical security.</p>
+      <a routerLink="/blog/vaults" class="outline-btn">Read More</a>
+    </div>
+  </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <div class="split-row">
+    <div class="split-image" style="background-image: url('/AlarmBlog.jpg')"></div>
+    <div class="split-text">
+      <span class="service-number">03</span>
+      <h3>Intrusion Alarm Systems</h3>
+      <p>Early warning systems designed to detect unauthorized access the moment it happens. Instant alerts to your phone and local authorities.</p>
+      <a href="/blog/intrusion-alarms" class="outline-btn">Read More</a>
+    </div>
+  </div>
+</section>
