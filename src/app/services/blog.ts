@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 export interface Blog {
   id: string;
   title: string;
-  content: string; 
+  content: string;
   image: string;
 }
 
@@ -12,65 +12,70 @@ export interface Blog {
 })
 export class BlogService {
   private posts: Blog[] = [
-    {
-      id: 'vaults',
-      title: 'High-Security Vault Solutions for Ultimate Asset Protection',
-      image: '/vaultblog.jpg',
-      content: `
-        <p>In a world where both physical and environmental threats are increasing, protecting your most valuable assets has never been more important. <strong>High-security vault systems</strong> are the gold standard for safeguarding cash, documents, jewelry, data storage, and critical business assets. At <strong>FilSafe</strong>, we engineer premium vault solutions designed to deliver maximum protection, durability, and long-term reliability.</p>
+{
+  id: 'vaults',
+  title: 'High-Security Vault Systems Angeles City | FilSafe Pampanga Asset Protection',
+  image: '/vaultblog.jpg',
+  content: `
+    <header>
+      <h1>High-Security Vault Systems for Maximum Asset Protection in Angeles City</h1>
+      <p><strong>Professional vault installation and asset protection for banks, institutions, and businesses in Pampanga and Clark Freeport Zone.</strong></p>
+    </header>
 
-        <h3>Why High-Security Vaults Are a Smart Investment</h3>
-        <p>Unlike ordinary safes, professional vault systems are designed to resist not only theft, but also fire, structural collapse, and environmental damage.</p>
+    <section>
+      <h2>Expertly Designed Vault Solutions for Pampanga Enterprises</h2>
+      <p>FilSafe is a company that specializes in high-security vault systems not only designed but also developed to keep up with the increasing security demands of enterprises as well as institutions. The vault solutions we offer are the most secure places for cash, documents, jewelry, data storage, and high-value assets, which makes them suitable for banks, offices, retail environments, and private facilities. The company's vaults are made of reinforced steel and also have multi-layer composite walls and even more advanced fire-resistant materials that can endure theft attempts, fire hazards, building collapse, and natural disasters. Each vault is designed and tested for the long-term reliability and for being up-to-date with the latest security standards. FilSafe vault systems with advanced locking options comprising biometric access, digital keypads, mechanical combination locks, and time-delay systems guarantee that only the authorized personnel have the right to enter and also the protection is trustworthy.</p>
+    </section>
 
-        <ul>
-          <li> Protects high-value assets from theft and forced entry</li>
-          <li> Shields important documents from fire, heat, and smoke damage</li>
-          <li> Secures sensitive materials, data backups, and business records</li>
-          <li> Provides controlled access for authorized personnel only</li>
-          <li> Increases insurance compliance and business security ratings</li>
-        </ul>
+    <section>
+      <h2>Why Pick FilSafe Vaults?</h2>
+      <ul>
+        <li><strong>The Highest Security Against Burglary:</strong> Walls made of steel and multi-layer composite that are reinforced to the maximum and made to resist even the most sophisticated drilling and burning techniques.</li>
+        <li><strong>Fire-proof Materials and Earthquake-Resistant Construction:</strong> The best materials and technology in fire-proofing and earthquake-proofing have been used in the construction of the vaults.</li>
+        <li><strong>Modern Access Control:</strong> High-end biometric, digital, and time-delay locking systems.</li>
+        <li><strong>Versatile Local Choice:</strong> Ideal for banking in San Fernando, corporate offices in Clark, and retail in Angeles City.</li>
+      </ul>
+    </section>
 
-        <h3>Military-Grade Construction & Fire Protection</h3>
-        <p>FilSafe vaults are built using <strong>reinforced steel plating</strong> and <strong>multi-layer composite walls</strong> designed to withstand extreme physical attacks. Our vault systems also feature <strong>advanced fire-resistant materials</strong> capable of protecting contents during high-temperature emergencies such as fires, earthquakes, and building failures.</p>
+    <section>
+      <h2>Tailored to Your Specifications: Modular Vault Panels</h2>
+      <p>Each facility comes equipped with its own specific architectural starts and needs, and therefore we design our security systems in such a way that they will match the aesthetics. Our modular vault panels can be resized and configured the way you want. Whether it is bringing an old office up to date or building a high-security new wing, our systems will not only blend seamlessly with your building's infrastructure but will also be visually attractive.</p>
+    </section>
 
-        <p>Every vault is rigorously tested to ensure structural integrity and long-term performance even under the harshest conditions.</p>
+    <section>
+      <h2>Expert Installation & Service in Angeles City</h2>
+      <p>Installation is the major factor that decides the quality of protection. Our certified technicians will align every vault door and panel with utmost precision, thus ensuring the maximum effectiveness of the air-tight and fire-resistant seals. Also, we offer periodic maintenance services for both biometric and mechanical locks so that you do not have to worry about your security being compromised for many years.</p>
+    </section>
 
-        <h3>Advanced Locking & Access Control Systems</h3>
-        <p>Security is only as strong as its locking mechanism. That’s why FilSafe vaults support multiple high-end access systems:</p>
+    <section>
+      <h2>The Future of Institutional Security</h2>
+      <p>We are adapting as threats change. FilSafe is dedicated to staying on top of metallurgical and cryptographic advancements. When you select our vault systems, you essentially acquire a solution that cannot be outdated and which keeps the safety of your physical and digital assets as the top priority.</p>
+    </section>
 
-        <ul>
-          <li> High-security mechanical combination locks</li>
-          <li> Electronic keypad and digital access systems</li>
-          <li> Biometric fingerprint and multi-factor authentication</li>
-          <li> Time-delay and audit-trail access logging (for businesses)</li>
-        </ul>
+    <section>
+      <h2>Frequently Asked Questions: Vault Security in Pampanga</h2>
+      <div>
+        <h3>Where can I find high-security vault installation in Angeles City?</h3>
+        <p>FilSafe provides on-site consultation and professional installation of certified vault systems for businesses located in Angeles City, Balibago, and the Clark Freeport Zone.</p>
+      </div>
 
-        <p>This layered security approach ensures that only authorized individuals can access your vault.</p>
+      <div>
+        <h3>Are modular vaults as secure as concrete vaults for banks in Pampanga?</h3>
+        <p>Yes, our modular vault panels offer the same security rating as traditional concrete but with faster installation times and flexible sizing for urban office spaces in San Fernando and Mabalacat.</p>
+      </div>
 
-        <h3>Custom-Built for Your Space & Security Needs</h3>
-        <p>No two security requirements are the same. FilSafe provides <strong>custom-designed vault solutions</strong> based on:</p>
+      <div>
+        <h3>How do I maintain my vault's locking system?</h3>
+        <p>We offer local maintenance services throughout Pampanga for biometric and mechanical locks to ensure your vault remains 100% operational and secure.</p>
+      </div>
+    </section>
 
-        <ul>
-          <li> Location and building structure</li>
-          <li> Risk level and threat assessment</li>
-          <li> Size, capacity, and usage requirements</li>
-          <li> Residential, commercial, or enterprise applications</li>
-        </ul>
-
-        <p>From compact personal vault rooms to large-scale enterprise vault installations, we design systems that fit seamlessly into your space.</p>
-
-        <h3>Ideal Applications for FilSafe Vault Systems</h3>
-        <ul>
-          <li> Banks and financial institutions</li>
-          <li> Jewelry stores and pawnshops</li>
-          <li> Corporate offices and data centers</li>
-          <li> Hospitals and government facilities</li>
-          <li> High-net-worth private residences</li>
-        </ul>
-
-        <p><strong>With FilSafe Vault Solutions, you don’t just store valuables — you protect your legacy.</strong></p>
-      `
-    },
+    <footer>
+      <hr />
+      <p><strong>Looking for a security consultation in Angeles City or Clark?</strong> If yes, then please reach out to FilSafe today. Our local experts will assist you in discussing your particular vault and asset protection requirements.</p>
+    </footer>
+  `
+},
 
     {
       id: 'cctv-systems',
@@ -138,7 +143,7 @@ export class BlogService {
 
       <h3>What Is an Alarm System?</h3>
       <p>An alarm system is a security solution designed to detect intrusions, forced entry, or suspicious activity. Once triggered, the system emits a loud siren and sends alerts to homeowners, business owners, or monitoring centers—helping prevent theft and minimize damage.</p>
-      
+
       <p>Alarm systems are commonly used in:</p>
       <ul>
         <li>Residential homes and apartments</li>
