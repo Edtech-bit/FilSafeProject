@@ -1,0 +1,32 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>FilSafe Admin</h2>
+    <p class="subtitle">Please enter your credentials to continue</p>
+
+    <form (ngSubmit)="onLogin()">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username"
+          [(ngModel)]="credentials.username" 
+          name="username" 
+          placeholder="Admin ID" 
+          required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password"
+          [(ngModel)]="credentials.password" 
+          name="password" 
+          placeholder="••••••••" 
+          required>
+      </div>
+
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<section class="hero" style="background-image: url('/HomeBanner.jpg')">
+  <div class="hero-overlay">
+    <div class="hero-badge">Trusted Security Since 2015</div>
+    <h1>Keeping You Safe, Every Step of the Way.</h1>
+    <p class="hero-subtitle">Comprehensive Security Solutions for Homes and Businesses.</p>
+    <button class="primary-cta" (click)="scrollToServices()">Explore Our Solutions</button>
+  </div>
+</section>
+
+<section class="intro-section"></section>
+
+<section class="home-services">
+  <div class="container">
+    <div class="section-title">
+      <span class="badge">What We Do</span>
+      <h2>Our Expert Services</h2>
+    </div>
+
+    <div class="services-scroll">
+      <div class="service-tile cctv-home" routerLink="/services/cctv">
+        <div class="service-overlay">
+          <h3>CCTV Systems</h3>
+          <p>Advanced surveillance & monitoring</p>
+        </div>
+      </div>
+
+      <div class="service-tile alarm-home" routerLink="/services/alarm">
+        <div class="service-overlay">
+          <h3>Intrusion Alarms</h3>
+          <p>Instant alerts & rapid response</p>
+        </div>
+      </div>
+
+      <div class="service-tile vault-home" routerLink="/services/vault">
+        <div class="service-overlay">
+          <h3>Premium Vaults</h3>
+          <p>High-security asset protection</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="premium-services" id="services">
+  <div class="section-header">
+    <h2>Our Specialized Solutions</h2>
+    <div class="header-line"></div>
+  </div>
+
+  <div *ngFor="let post of blogs; let i = index" class="split-row" [class.reverse]="i % 2 !== 0">
+    <div class="split-image" [style.backgroundImage]="'url(' + post.image + ')'"></div>
+    
+    <div class="split-text">
+      <span class="service-number">0{{ i + 1 }}</span>
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.shortDescription }}</p>
+      <a [routerLink]="['/blog', post._id]" class="outline-btn">Read More</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+<div class="admin-wrap">
+  <div class="admin-header">
+    <h2>FilSafe Content Manager</h2>
+  </div>
+
+  <section class="admin-card">
+    <form (ngSubmit)="onBlogSubmit()">
+      
+      <div class="input-group">
+        <label>Article Title</label>
+        <input type="text" [(ngModel)]="newBlog.title" name="title" required placeholder="Enter a catchy title...">
+      </div>
+
+      <div class="input-group">
+        <label style="color: #fbbf24; font-weight: bold;">SEO: Hero Image Alt Name</label>
+        <input type="text" 
+               [(ngModel)]="newBlog.imageAlt" 
+               name="imageAlt" 
+               required 
+               placeholder="Describe image for Google (e.g., FilSafe Smart Door Lock Installation)">
+        <small style="color: #94a3b8; display: block; margin-top: 5px;">
+          Keep this descriptive. It helps your images appear in Google Search results.
+        </small>
+      </div>
+
+      <div class="input-group">
+        <label>Step 1: Upload Homepage Thumbnail</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input">
+        <div *ngIf="newBlog.image" class="preview-box">
+          <p>Thumbnail Preview:</p>
+          <img [src]="newBlog.image" style="height: 100px; border-radius: 5px;">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Teaser Description</label>
+        <textarea [(ngModel)]="newBlog.shortDescription" name="shortDescription" rows="2" placeholder="Brief summary for the blog card..."></textarea>
+      </div>
+
+      <div class="input-group">
+        <label>Step 2: Write Content & Upload In-Article Images</label>
+        <div class="editor-container">
+          <quill-editor 
+            [(ngModel)]="newBlog.content" 
+            name="content"
+            placeholder="Use the image icon in the toolbar above for images inside the text...">
+          </quill-editor>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-publish">Publish Everything</button>
+    </form>
+  </section>
+
+  <section class="admin-card">
+    <h3>Existing Articles</h3>
+    <table>
+      <tr *ngFor="let blog of blogs">
+        <td>
+          <div>{{ blog.title }}</div>
+          <small style="color: #64748b; font-size: 0.8rem;" *ngIf="blog.imageAlt">
+            SEO Alt: {{ blog.imageAlt }}
+          </small>
+        </td>
+        <td style="text-align: right;">
+          <button (click)="onDeleteBlog(blog._id)" class="btn-delete">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </section>
+</div>

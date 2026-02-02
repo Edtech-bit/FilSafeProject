@@ -1,0 +1,209 @@
+.blog-page {
+  background-color: #020617;
+  min-height: 100vh;
+  color: #f1f5f9;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* =========================
+   HERO BANNER STYLING
+   ========================= */
+.blog-hero {
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 100px;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0.2) 0%,
+    rgba(2, 6, 23, 0.6) 50%,
+    rgba(2, 6, 23, 0.95) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 30px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.meta-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.category-badge {
+  background: #fbbf24;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+.reading-time {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 5px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.blog-main-title {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.1;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* FIX: Only break if the word is actually longer than the screen */
+  overflow-wrap: anywhere; 
+}
+
+.title-underline {
+  width: 80px;
+  height: 4px;
+  background: #fbbf24;
+  margin-top: 25px;
+  border-radius: 2px;
+}
+
+/* =========================
+   ARTICLE CONTENT STYLING
+   ========================= */
+.content-container {
+  max-width: 1500px;
+  margin: -60px auto 0;
+  position: relative;
+  z-index: 10;
+  padding: 0 20px 100px;
+}
+
+.blog-article {
+  background: #0f172a; 
+  padding: clamp(30px, 8vw, 70px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+::ng-deep .ql-editor {
+  color: #cbd5e1;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  padding: 0 !important;
+  
+  white-space: normal;      
+  word-break: normal;      
+  overflow-wrap: break-word;
+  hyphens: none;        
+  text-align: left;   
+}
+
+::ng-deep .ql-editor p {
+  margin-bottom: 1.5rem;     /* Adds nice spacing between paragraphs */
+}
+
+::ng-deep .ql-editor img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 8px;
+}
+
+::ng-deep .ql-editor h2 {
+  color: #fff;
+  font-size: 1.8rem;
+  margin-top: 40px;
+  word-break: normal;
+}
+
+/* =========================
+   FOOTER STYLING
+   ========================= */
+.divider {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.15), rgba(255,255,255,0));
+  margin: 50px 0;
+}
+
+.author-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.published-by {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.author-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.back-btn {
+  background: transparent;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-btn:hover {
+  background: #fbbf24;
+  color: #020617;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .blog-hero { height: 60vh; padding-bottom: 60px; }
+  .blog-article { padding: 30px 20px; }
+  .author-footer { flex-direction: column; text-align: center; }
+  .back-btn { width: 100%; justify-content: center; }
+}

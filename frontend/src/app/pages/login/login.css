@@ -1,0 +1,105 @@
+/* Professional dark backdrop with a subtle gradient */
+.login-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0f172a; /* Sophisticated Midnight Blue */
+  background-image: radial-gradient(at 0% 0%, rgba(255, 204, 0, 0.05) 0, transparent 50%), 
+                    radial-gradient(at 50% 0%, rgba(15, 23, 42, 1) 0, transparent 50%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* The Login Card: Clean, sharp, and authoritative */
+.login-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 8px; /* Sharper corners look more formal */
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  border-top: 6px solid #ffcc00; /* FilSafe Yellow Brand Line */
+}
+
+/* Professional Typography */
+h2 {
+  color: #1e293b;
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+/* Input Styling */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #1e293b;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  background-color: #f8fafc;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #0f172a;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
+}
+
+/* The Professional Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #0f172a; /* Navy Primary */
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  background-color: #1e293b;
+}
+
+.login-btn:active {
+  transform: translateY(1px);
+}
+
+/* Footer for the copyright info */
+.footer-text {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}

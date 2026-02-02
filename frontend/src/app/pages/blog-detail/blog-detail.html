@@ -1,0 +1,50 @@
+<section class="blog-page" *ngIf="post; else notFound">
+  <div 
+    class="blog-hero" 
+    [style.backgroundImage]="'url(' + post.image + ')'"
+    role="img"
+    [attr.aria-label]="post.imageAlt || post.title">
+    
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+      <div class="meta-container">
+        <span class="category-badge">Security Insights</span>
+        <span class="reading-time">
+          <i class="far fa-clock"></i> 5 min read
+        </span>
+      </div>
+      <h1 class="blog-main-title">{{ post.title }}</h1>
+      <div class="title-underline"></div>
+    </div>
+  </div>
+
+  <div class="content-container">
+    <article class="blog-article">
+      <div class="rich-text ql-editor" [innerHTML]="post.content"></div>
+      
+      <hr class="divider">
+      
+      <div class="author-footer">
+        <div class="author-info">
+          <p class="published-by">Published by</p>
+          <p class="author-name">FilSafe Technical Team</p>
+        </div>
+        <button routerLink="/" class="back-btn">
+          <span class="btn-icon">←</span> Back to Insights
+        </button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<ng-template #notFound>
+  <div class="error-container">
+    <div class="error-card">
+      <div class="error-icon">⚠️</div>
+      <h2>Article Unavailable</h2>
+      <p>The security brief you are looking for has been moved or archived.</p>
+      <a routerLink="/" class="primary-btn">Return to Dashboard</a>
+    </div>
+  </div>
+</ng-template>

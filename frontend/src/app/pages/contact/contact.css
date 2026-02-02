@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lato:wght@700&display=swap');
+
+/* 1. Global Page Layout */
+.contact-page {
+    font-family: 'DM Sans', sans-serif;
+    background: #e9eff5;
+    padding: 60px 20px;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.contact-header h1 {
+    font-size: 4.5rem; 
+    font-weight: 800;
+    color: #162a3e;
+    margin: 0 0 15px 0;
+}
+
+.contact-header p {
+    font-size: 1.4rem;
+    color: #333;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* 2. Grid Container */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* 3. Contact Form Card */
+.contact-card {
+    background: #0F2A44; 
+    padding: 30px 40px; 
+    border-radius: 4px;
+    color: white;
+}
+
+.contact-card h3 {
+    color: #5d93c0;
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.contact-card label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem; /* Adjusted slightly for better proportions */
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.contact-card input, 
+.contact-card textarea {
+    width: 100%;
+    background: #4a627a; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    padding: 14px;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+/* 4. The Submit Button */
+.contact-card button {
+    background: #8e1e1e; /* Deep Red */
+    width: 100%;
+    padding: 20px; /* Adjusted padding to be more standard */
+    border: none;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.contact-card button:hover:not(:disabled) {
+    background: #a92525;
+}
+
+.contact-card button:disabled {
+    background: #4a627a;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* 5. Information Card */
+.info-card {
+    background: #0F2A44;
+    padding: 30px 40px;
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.info-card h3 {
+    color: #5d93c0;
+    text-align: center;
+    font-size: 1.8rem;  
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+/* Red Icon Circles */
+.icon-circle {
+    background: #8e1e1e;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.info-text strong {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.info-text p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #cbd5e1;
+    margin: 0;
+}
+
+/* 6. Why Choose Us Section */
+.why-choose {
+    background: #0F2A44;
+    padding: 30px 40px;
+    border-radius: 4px;
+    color: white;
+}
+
+.why-choose h3 {
+    color: #5d93c0;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.why-choose ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.why-choose li {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1.4;
+}
+
+.why-choose li::before {
+    content: "✓";
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+/* 7. Responsive Design */
+@media (max-width: 850px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-header h1 {
+        font-size: 3rem;
+    }
+}
