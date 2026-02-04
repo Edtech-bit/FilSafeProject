@@ -8,7 +8,7 @@ export interface Blog {
   shortDescription: string;
   content: string;
   image: string;
-  imageAlt?: string; // This fixes the imageAlt error
+  imageAlt?: string;
   date?: string;
 }
 
