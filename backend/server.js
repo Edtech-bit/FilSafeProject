@@ -2,12 +2,36 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const axios = require('axios'); // Added axios for GA4 requests
 
 const User = require('./models/user');
 const Blog = require('./models/blog');
 const Product = require('./models/product');
 
 const app = express();
+
+// --- GOOGLE ANALYTICS CONFIG ---
+// Replace these with your actual GA4 values from Admin > Data Streams
+const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; 
+const GA_API_SECRET = 'YOUR_API_SECRET_HERE'; 
+
+const sendGAEvent = async (eventName, params = {}) => {
+  try {
+    const payload = {
+      client_id: 'server_side_user', // Ideally a unique ID from the user's session
+      events: [{
+        name: eventName,
+        params: params,
+      }]
+    };
+    await axios.post(
+      `https://www.google-analytics.com/mp/collect?measurement_id=${GA_MEASUREMENT_ID}&api_secret=${GA_API_SECRET}`,
+      payload
+    );
+  } catch (err) {
+    console.error('GA Tracking Error:', err.message);
+  }
+};
 
 // This effectively removes the Express limit
 app.use(express.json({ limit: '1000mb' }));
@@ -38,6 +62,9 @@ app.post('/api/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
     
+    // TRACKING: Log successful login
+    sendGAEvent('login', { method: 'credentials', username: username });
+
     res.json({ status: 'success', message: 'Logged in' });
   } catch (err) {
     res.status(500).json({ message: 'Login error' });
@@ -47,7 +74,7 @@ app.post('/api/login', async (req, res) => {
 // --- BLOGS ---
 app.get('/api/blogs', async (req, res) => {
   try {
-    const blogs = await Blog.find().sort({ createdAt: -1 }); // Use createdAt for sorting
+    const blogs = await Blog.find().sort({ createdAt: -1 }); 
     res.json(blogs);
   } catch (err) {
     res.status(500).json({ message: 'Error fetching blogs' });
@@ -71,9 +98,13 @@ app.post('/api/blogs', async (req, res) => {
       shortDescription: req.body.shortDescription, 
       content: req.body.content,                   
       image: req.body.image,
-      imageAlt: req.body.imageAlt // NEW SEO FIELD
+      imageAlt: req.body.imageAlt 
     });
     const savedBlog = await newBlog.save();
+
+    // TRACKING: Log blog creation
+    sendGAEvent('create_blog', { blog_title: req.body.title });
+
     res.status(201).json(savedBlog);
   } catch (err) {
     console.error('SAVE ERROR:', err);
@@ -81,7 +112,6 @@ app.post('/api/blogs', async (req, res) => {
   }
 });
 
-// Update route (useful for fixing SEO/Alt text on existing blogs)
 app.put('/api/blogs/:id', async (req, res) => {
   try {
     const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -114,6 +144,10 @@ app.post('/api/products', async (req, res) => {
   try {
     const newProduct = new Product(req.body);
     await newProduct.save();
+
+    // TRACKING: Log product addition
+    sendGAEvent('add_product', { product_name: req.body.name });
+
     res.status(201).json(newProduct);
   } catch (err) {
     res.status(400).json({ message: 'Error' });
@@ -129,4 +163,4 @@ app.delete('/api/products/:id', async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log('Backend live with SEO support.'));
+app.listen(3000, () => console.log('Backend live.'));
