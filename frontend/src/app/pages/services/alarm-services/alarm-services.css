@@ -66,38 +66,76 @@
 /* 2. Unified Section Logic (Installation) */
 .installation {
     width: 100vw;
+    /* Centering logic for full-width background */
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
     
-    background-color: #0d1b2a; /* Same dark blue */
+    background-color: #0d1b2a;
     color: #ffffff;
-    padding: 40px 10% 80px 10%; /* Matching repairs padding */
+    
+    /* FLEX SETTINGS */
+    display: flex;
+    flex-direction: row; /* Side by side */
+    align-items: stretch; /* Makes image and text same height */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.installation-content {
+    flex: 1;
+    padding: 80px 5% 80px 10%; /* Extra padding on the left */
+    text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Aligns left */
-    text-align: left;
-    box-sizing: border-box;
+    justify-content: center;
+}
+
+.installation-image {
+    flex: 1;
+    display: flex;
+}
+
+.installation-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This ensures the image fills the space without stretching */
+    display: block;
 }
 
 /* 3. Unified Section Logic (Repairs) */
 .repairs {
-    width: 100vw; 
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
+    width: 100%;
+    display: flex;
+    align-items: center; /* Vertically centers the text against the image */
+    justify-content: space-between;
+    background-color: #fbfbfb;
+    padding: 0; /* Removed padding to let image touch edges */
+    overflow: hidden; 
+}
 
-    background-color: #ffffff; 
-    padding: 80px 10%; 
+/* 1. The Image Container */
+.repairs-image {
+    flex: 1; /* Takes up half the space */
+    max-width: 50%;
+}
+
+.repairs-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 2. The Content Container */
+.repairs-content {
+    flex: 1;
+    padding: 80px 5% 80px 20px; /* Padding on the right, small gap from image */
+    text-align: right;
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Aligns right */
-    text-align: right;
-    box-sizing: border-box;
+    align-items: flex-end;
 }
 
 /* Typography Sync */
@@ -118,24 +156,44 @@
 
 /* CSS for rewiring */
 .rewiring {
-    /* 1. FULL WIDTH TRICK */
     width: 100vw;
+    /* Centering logic for full-width background */
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
 
-    /* 2. STYLING & COLORS */
-    background-color: #0d1b2a; /* Back to the navy blue */
+    background-color: #0d1b2a;
     color: #ffffff;
-    padding: 80px 10%;
+
+    /* FLEX SETTINGS */
+    display: flex;
+    flex-direction: row; /* Side by side */
+    align-items: stretch; /* Makes image and text same height */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.rewiring-content {
+    flex: 2;
+    padding: 80px 5% 80px 10%; /* Extra padding on the left */
+    text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Aligns text to the left */
-    text-align: left;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    justify-content: center;
+}
+
+.rewiring-image {
+    flex: 1;
+    display: flex;
+}
+
+.rewiring-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
 }
 
 .rewiring h3 {

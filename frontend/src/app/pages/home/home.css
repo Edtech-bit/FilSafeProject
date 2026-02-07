@@ -326,7 +326,7 @@ body {
   box-shadow: var(--glass-shadow);
   border: 1px solid rgba(255,255,255,0.08);
 
-  cursor: default; /* no hover */
+  cursor: pointer; /* no hover */
 }
 
 /* Dark overlay */
@@ -361,11 +361,12 @@ body {
 }
 
 .home-services .service-overlay p {
-  color: var(--gold) !important;
+  /* color: var(--gold) !important; */
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.5;
   opacity: 0.95;
+  color:#ffffff
 }
 
 /* Background images */
