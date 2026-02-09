@@ -268,10 +268,11 @@
         .offering-desc { color: var(--silver); font-size: 0.95rem; line-height: 1.6; }
 
         /* CTA Section */
-        .cta-section {
-            padding: 6rem 3rem;
-            background: var(--dark);
-        }
+       .cta-section {
+    padding: 8rem 3rem;
+    background: var(--white); /* Matches the white background in your screenshot */
+    text-align: center;
+}
 
         .cta-container {
             max-width: 1200px;
@@ -284,26 +285,35 @@
         }
 
         .cta-title {
-            font-family: var(--font-heading);
-            font-weight: 800;
-            font-size: 4rem;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            line-height: 1;
-        }
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-transform: uppercase;
+    color: var(--dark);
+    margin-bottom: 2.5rem;
+    letter-spacing: -1px;
+}
 
-        .cta-btn {
-            display: inline-block;
-            background: var(--electric);
-            color: var(--white);
-            padding: 1.5rem 4rem;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.5rem;
-            text-decoration: none;
-            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
-            transition: all 0.3s ease;
-        }
+    .cta-btn {
+    display: inline-block;
+    background-color: #0F2A44; /* Specific blue requested */
+    color: #FFFFFF; /* White text */
+    padding: 1rem 3rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-decoration: none;
+    text-transform: none; /* Matches "View Our Products" casing in screenshot */
+    border-radius: 4px; /* Clean, modern professional look */
+    transition: all 0.3s ease;
+    border: 2px solid #0F2A44;
+}
+
+.cta-btn:hover {
+    background-color: transparent;
+    color: #0F2A44;
+    transform: translateY(-2px);
+}
 
         /* Footer */
         footer {
