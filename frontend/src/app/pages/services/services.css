@@ -5,6 +5,18 @@
 .alarm-bg { background-image: url('/AlarmServices.jpg'); }
 .vault-bg { background-image: url('/VaultServices.jpg'); }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* =========================
    CONTAINER STYLES
    ========================= */

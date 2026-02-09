@@ -11,6 +11,7 @@ declare var gtag: Function;
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
 })
+
 export class App implements OnInit {
   private router = inject(Router);
 
@@ -22,6 +23,14 @@ export class App implements OnInit {
       gtag('config', 'G-XXXXXXXXXX', {
         page_path: event.urlAfterRedirects
       });
+    });
+  }
+
+  onActivate() {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant' // Uses 'instant' to prevent seeing the scroll happen
     });
   }
 }
