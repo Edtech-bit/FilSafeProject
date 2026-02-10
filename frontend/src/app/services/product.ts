@@ -17,7 +17,6 @@ export interface Product {
 export class ProductService {
   private apiUrl = 'http://localhost:3000/api/products';
   
-  // Create a subject to hold the products
   private productsSubject = new BehaviorSubject<Product[]>([]);
   products$ = this.productsSubject.asObservable();
 
@@ -31,13 +30,20 @@ export class ProductService {
 
   addProduct(product: Product) {
     return this.http.post<Product>(this.apiUrl, product).pipe(
-      tap(() => this.getProducts().subscribe()) // Refresh list after add
+      tap(() => this.getProducts().subscribe())
+    );
+  }
+
+  // New Update Method
+  updateProduct(id: string, product: Product) {
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, product).pipe(
+      tap(() => this.getProducts().subscribe())
     );
   }
 
   deleteProduct(id: string) {
     return this.http.delete(`${this.apiUrl}/${id}`).pipe(
-      tap(() => this.getProducts().subscribe()) // Refresh list after delete
+      tap(() => this.getProducts().subscribe())
     );
   }
 }

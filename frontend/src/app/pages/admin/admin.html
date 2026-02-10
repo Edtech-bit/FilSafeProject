@@ -9,6 +9,7 @@
 
   <div *ngIf="currentTab === 'product'">
     <section class="admin-card">
+      <h3 style="margin-bottom: 15px;">{{ isEditingProduct ? 'Edit Product' : 'Add New Product' }}</h3>
       <form (ngSubmit)="onProductSubmit()">
         <div class="input-group"><label>Product Name</label><input type="text" [(ngModel)]="newProduct.name" name="pName" required></div>
         <div class="input-group">
@@ -29,55 +30,54 @@
             <input type="file" (change)="onBrochureSelected($event)">
           </div>
         </div>
-        <button type="submit" class="btn-publish">Add Product</button>
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn-publish">{{ isEditingProduct ? 'Update Product' : 'Add Product' }}</button>
+          <button type="button" *ngIf="isEditingProduct" (click)="cancelProductEdit()" class="btn-delete">Cancel</button>
+        </div>
       </form>
     </section>
 
     <section class="admin-card">
       <h3>Inventory ({{ products.length }} items)</h3>
-      
-      <div *ngIf="products.length > 0; else noData">
-        <table class="admin-table">
-          <thead>
-            <tr><th>Name</th><th>Category</th><th>Action</th></tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let p of products">
-              <td>
-                <span class="clickable-name" (click)="openBrochurePopup(p.brochure)">
-                  {{ p.name }} 👁️
-                </span>
-              </td>
-              <td>{{ p.category }}</td>
-              <td><button (click)="onDeleteProduct(p._id)" class="btn-delete">Remove</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <ng-template #noData>
-        <p style="padding: 20px; text-align: center; color: #94a3b8;">
-          No products found. If you have data in Atlas, wait a moment or check the console.
-        </p>
-      </ng-template>
+      <table class="admin-table" *ngIf="products.length > 0">
+        <thead>
+          <tr><th>Name</th><th>Category</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of products">
+            <td><span class="clickable-name" (click)="openBrochurePopup(p.brochure)">{{ p.name }} 👁️</span></td>
+            <td>{{ p.category }}</td>
+            <td>
+              <button (click)="editProduct(p)" class="btn-edit" style="margin-right: 5px;">Edit</button>
+              <button (click)="onDeleteProduct(p._id)" class="btn-delete">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </div>
 
   <div *ngIf="currentTab === 'blog'">
     <section class="admin-card">
+        <h3>{{ isEditingBlog ? 'Edit Blog' : 'Create New Blog' }}</h3>
+        <div class="input-group"><label>Title</label><input [(ngModel)]="newBlog.title" placeholder="Blog Title"></div>
+        <quill-editor [(ngModel)]="newBlog.content" [style]="{height: '250px'}"></quill-editor>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button (click)="onBlogSubmit()" class="btn-publish">{{ isEditingBlog ? 'Update Blog' : 'Publish Blog' }}</button>
+            <button *ngIf="isEditingBlog" (click)="cancelBlogEdit()" class="btn-delete">Cancel</button>
+        </div>
+    </section>
+
+    <section class="admin-card">
       <table class="admin-table">
         <tr *ngFor="let blog of blogs">
           <td>{{ blog.title }}</td>
-          <td><button (click)="onDeleteBlog(blog._id)" class="btn-delete">Delete</button></td>
+          <td>
+            <button (click)="editBlog(blog)" class="btn-edit" style="margin-right: 5px;">Edit</button>
+            <button (click)="onDeleteBlog(blog._id)" class="btn-delete">Delete</button>
+          </td>
         </tr>
       </table>
     </section>
-  </div>
-
-  <div class="modal-overlay" *ngIf="isModalOpen" (click)="closePopup()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <button class="close-btn" (click)="closePopup()">&times;</button>
-      <img [src]="selectedBrochure" alt="Brochure">
-    </div>
   </div>
 </div>

@@ -30,6 +30,11 @@ export class BlogService {
     return this.http.post<Blog>(this.apiUrl, blog);
   }
 
+  // New Update Method
+  updatePost(id: string, blog: Blog): Observable<Blog> {
+    return this.http.put<Blog>(`${this.apiUrl}/${id}`, blog);
+  }
+
   deletePost(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }

@@ -20,6 +20,10 @@ export class Admin implements OnInit {
   isModalOpen = false;
   selectedBrochure = '';
 
+  // Edit States
+  isEditingProduct = false;
+  isEditingBlog = false;
+
   newBlog: Blog = { title: '', shortDescription: '', content: '', image: '', imageAlt: '' };
   newProduct: Product = { name: '', category: 'CCTV', image: '', brochure: '', imageAlt: '' };
 
@@ -31,11 +35,7 @@ export class Admin implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // We delay the very first load by 300ms to ensure the browser 
-    // has finished rendering the CSS/HTML container
-    setTimeout(() => {
-      this.loadInitialData();
-    }, 300);
+    setTimeout(() => { this.loadInitialData(); }, 300);
   }
 
   loadInitialData() {
@@ -48,24 +48,14 @@ export class Admin implements OnInit {
     this.cdr.detectChanges();
   }
 
-  // --- THE REFRESH FIX ---
   loadProducts() {
-    console.log('Admin: Requesting all products from Service...');
     this.productsService.getProducts().subscribe({
       next: (data) => {
-        // We use ngZone to force the browser to acknowledge the data arrival
         this.ngZone.run(() => {
-          console.log('Admin: Data received from Atlas. Count:', data.length);
-          
-          // Force a brand new array reference
           this.products = [...data]; 
-          
-          // Force immediate UI check
-          this.cdr.markForCheck();
           this.cdr.detectChanges();
         });
-      },
-      error: (err) => console.error("Admin: Atlas Error", err)
+      }
     });
   }
 
@@ -76,17 +66,32 @@ export class Admin implements OnInit {
     });
   }
 
-  // --- ACTIONS ---
+  // --- PRODUCT ACTIONS ---
   onProductSubmit() {
-    if (!this.newProduct.name || !this.newProduct.image || !this.newProduct.brochure) {
-      alert("Please fill name and upload both images.");
-      return;
+    if (this.isEditingProduct) {
+      this.productsService.updateProduct(this.newProduct._id!, this.newProduct).subscribe(() => {
+        alert('Product Updated!');
+        this.cancelProductEdit();
+        this.loadProducts();
+      });
+    } else {
+      this.productsService.addProduct(this.newProduct).subscribe(() => {
+        alert('Product Added!');
+        this.resetProductForm();
+        this.loadProducts();
+      });
     }
-    this.productsService.addProduct(this.newProduct).subscribe(() => {
-      alert('Success!');
-      this.resetProductForm();
-      this.loadProducts();
-    });
+  }
+
+  editProduct(product: Product) {
+    this.isEditingProduct = true;
+    this.newProduct = { ...product }; // Copy data to form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  cancelProductEdit() {
+    this.isEditingProduct = false;
+    this.resetProductForm();
   }
 
   onDeleteProduct(id: string | undefined) {
@@ -95,12 +100,32 @@ export class Admin implements OnInit {
     }
   }
 
+  // --- BLOG ACTIONS ---
   onBlogSubmit() {
-    this.blogService.addPost(this.newBlog).subscribe(() => {
-      alert('Blog Published!');
-      this.resetBlogForm();
-      this.loadBlogs();
-    });
+    if (this.isEditingBlog) {
+      this.blogService.updatePost(this.newBlog._id!, this.newBlog).subscribe(() => {
+        alert('Blog Updated!');
+        this.cancelBlogEdit();
+        this.loadBlogs();
+      });
+    } else {
+      this.blogService.addPost(this.newBlog).subscribe(() => {
+        alert('Blog Published!');
+        this.resetBlogForm();
+        this.loadBlogs();
+      });
+    }
+  }
+
+  editBlog(blog: Blog) {
+    this.isEditingBlog = true;
+    this.newBlog = { ...blog };
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  cancelBlogEdit() {
+    this.isEditingBlog = false;
+    this.resetBlogForm();
   }
 
   onDeleteBlog(id: string | undefined) {
@@ -109,7 +134,7 @@ export class Admin implements OnInit {
     }
   }
 
-  // Standard File Processing
+  // File Processing
   onFileSelected(event: any) { this.processFile(event, 'blog'); }
   onProductImageSelected(event: any) { this.processFile(event, 'pImg'); }
   onBrochureSelected(event: any) { this.processFile(event, 'broch'); }
@@ -134,11 +159,7 @@ export class Admin implements OnInit {
     this.cdr.detectChanges();
   }
 
-  closePopup() { 
-    this.isModalOpen = false; 
-    this.cdr.detectChanges();
-  }
-
+  closePopup() { this.isModalOpen = false; this.cdr.detectChanges(); }
   resetBlogForm() { this.newBlog = { title: '', shortDescription: '', content: '', image: '', imageAlt: '' }; }
   resetProductForm() { this.newProduct = { name: '', category: 'CCTV', image: '', brochure: '', imageAlt: '' }; }
 }

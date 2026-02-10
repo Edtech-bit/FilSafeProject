@@ -44,6 +44,7 @@ app.get('/api/blogs', async (req, res) => {
   }
 });
 
+// CREATE BLOG
 app.post('/api/blogs', async (req, res) => {
   try {
     const newBlog = new Blog(req.body);
@@ -54,6 +55,22 @@ app.post('/api/blogs', async (req, res) => {
   }
 });
 
+// UPDATE BLOG (The new "Edit" route)
+app.put('/api/blogs/:id', async (req, res) => {
+  try {
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true, runValidators: true } // returns the updated doc and checks rules
+    );
+    if (!updatedBlog) return res.status(404).json({ message: 'Blog not found' });
+    res.json(updatedBlog);
+  } catch (err) {
+    res.status(400).json({ message: 'Update failed' });
+  }
+});
+
+// DELETE BLOG
 app.delete('/api/blogs/:id', async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
@@ -64,12 +81,29 @@ app.delete('/api/blogs/:id', async (req, res) => {
 });
 
 // --- PRODUCT ROUTES ---
+
+// GET ALL PRODUCTS
 app.get('/api/products', async (req, res) => {
   try {
     const products = await Product.find();
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: 'Error' });
+  }
+});
+
+// UPDATE PRODUCT (Added for your product editing)
+app.put('/api/products/:id', async (req, res) => {
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id, 
+      req.body, 
+      { new: true }
+    );
+    if (!updatedProduct) return res.status(404).json({ message: 'Product not found' });
+    res.json(updatedProduct);
+  } catch (err) {
+    res.status(400).json({ message: 'Update failed' });
   }
 });
 
