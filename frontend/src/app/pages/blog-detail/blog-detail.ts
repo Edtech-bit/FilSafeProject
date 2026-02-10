@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BlogService, Blog } from '../../services/blog';
@@ -8,7 +8,8 @@ import { BlogService, Blog } from '../../services/blog';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './blog-detail.html',
-  styleUrl: './blog-detail.css'
+  styleUrl: './blog-detail.css',
+  encapsulation: ViewEncapsulation.None // This is required for rich text styles!
 })
 export class BlogDetail implements OnInit {
   post: Blog | null = null;
@@ -20,20 +21,20 @@ export class BlogDetail implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    
-    if (id) {
-      this.blogService.getPostById(id).subscribe({
-        next: (data) => {
-          this.post = data;
-          // After the interface update, this.post.imageAlt is now valid
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Error fetching blog detail:', err);
-          this.post = null;
-        }
-      });
-    }
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.blogService.getPostById(id).subscribe({
+          next: (data) => {
+            this.post = data;
+            this.cdr.detectChanges();
+          },
+          error: (err) => {
+            console.error('Fetch Error:', err);
+            this.post = null;
+          }
+        });
+      }
+    });
   }
 }

@@ -12,9 +12,7 @@ export interface Blog {
   date?: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class BlogService {
   private apiUrl = 'http://localhost:3000/api/blogs';
 
@@ -28,7 +26,6 @@ export class BlogService {
     return this.http.get<Blog>(`${this.apiUrl}/${id}`);
   }
 
-  // Renamed from createPost to addPost to fix your Admin error
   addPost(blog: Blog): Observable<Blog> {
     return this.http.post<Blog>(this.apiUrl, blog);
   }

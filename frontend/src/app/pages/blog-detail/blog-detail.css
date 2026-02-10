@@ -35,7 +35,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px; /* Increased from 900px */
   margin: 0 auto;
   padding: 0 30px;
   animation: fadeInUp 0.8s ease-out;
@@ -79,8 +79,7 @@
   color: #ffffff;
   margin: 0;
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  /* FIX: Only break if the word is actually longer than the screen */
-  overflow-wrap: anywhere; 
+  overflow-wrap: break-word; 
 }
 
 .title-underline {
@@ -95,7 +94,7 @@
    ARTICLE CONTENT STYLING
    ========================= */
 .content-container {
-  max-width: 1500px;
+  max-width: 1700px; /* Increased from 1000px */
   margin: -60px auto 0;
   position: relative;
   z-index: 10;
@@ -104,40 +103,53 @@
 
 .blog-article {
   background: #0f172a; 
-  padding: clamp(30px, 8vw, 70px);
+  padding: clamp(30px, 6vw, 80px); /* Adjusted padding for wider feel */
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
 }
 
-::ng-deep .ql-editor {
+/* QUILL CONTENT STYLING */
+.ql-editor {
   color: #cbd5e1;
   font-size: 1.15rem;
   line-height: 1.8;
   padding: 0 !important;
-  
   white-space: normal;      
   word-break: normal;      
   overflow-wrap: break-word;
-  hyphens: none;        
   text-align: left;   
 }
 
-::ng-deep .ql-editor p {
-  margin-bottom: 1.5rem;     /* Adds nice spacing between paragraphs */
+.ql-editor p {
+  margin-bottom: 1.8rem;
 }
 
-::ng-deep .ql-editor img {
+.ql-editor h1, .ql-editor h2, .ql-editor h3 {
+  color: #ffffff;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.ql-editor h2 { font-size: 2rem; }
+
+.ql-editor img {
+  display: block; /* Ensures centering works if needed */
   max-width: 100% !important;
   height: auto !important;
-  border-radius: 8px;
+  border-radius: 12px;
+  margin: 2.5rem auto; /* Centers images and adds space */
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-::ng-deep .ql-editor h2 {
-  color: #fff;
-  font-size: 1.8rem;
-  margin-top: 40px;
-  word-break: normal;
+.ql-editor ul, .ql-editor ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.ql-editor li {
+  margin-bottom: 0.5rem;
 }
 
 /* =========================
@@ -180,17 +192,18 @@
   padding: 14px 28px;
   border-radius: 8px;
   font-weight: 700;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
 }
 
 .back-btn:hover {
   background: #fbbf24;
   color: #020617;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
 }
 
@@ -203,7 +216,8 @@
 /* MOBILE ADJUSTMENTS */
 @media (max-width: 768px) {
   .blog-hero { height: 60vh; padding-bottom: 60px; }
-  .blog-article { padding: 30px 20px; }
+  .blog-article { padding: 40px 20px; }
   .author-footer { flex-direction: column; text-align: center; }
   .back-btn { width: 100%; justify-content: center; }
+  .content-container { margin: -40px auto 0; }
 }
