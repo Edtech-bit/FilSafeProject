@@ -11,7 +11,11 @@
     <section class="admin-card">
       <h3 style="margin-bottom: 15px;">{{ isEditingProduct ? 'Edit Product' : 'Add New Product' }}</h3>
       <form (ngSubmit)="onProductSubmit()">
-        <div class="input-group"><label>Product Name</label><input type="text" [(ngModel)]="newProduct.name" name="pName" required></div>
+        <div class="input-group">
+          <label>Product Name</label>
+          <input type="text" [(ngModel)]="newProduct.name" name="pName" required>
+        </div>
+        
         <div class="input-group">
           <label>Category</label>
           <select [(ngModel)]="newProduct.category" name="pCat">
@@ -20,64 +24,129 @@
             <option value="Alarm">Alarm System</option>
           </select>
         </div>
+
         <div style="display: flex; gap: 10px; margin-top: 10px;">
           <div class="input-group">
             <label>Product Image</label>
             <input type="file" (change)="onProductImageSelected($event)">
+            <small *ngIf="isEditingProduct" style="color: #94a3b8;">Keep empty to keep current image</small>
           </div>
           <div class="input-group">
             <label>Brochure Image</label>
             <input type="file" (change)="onBrochureSelected($event)">
+            <small *ngIf="isEditingProduct" style="color: #94a3b8;">Keep empty to keep current brochure</small>
           </div>
         </div>
-        <div style="display: flex; gap: 10px;">
-          <button type="submit" class="btn-publish">{{ isEditingProduct ? 'Update Product' : 'Add Product' }}</button>
-          <button type="button" *ngIf="isEditingProduct" (click)="cancelProductEdit()" class="btn-delete">Cancel</button>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="submit" class="btn-publish">
+            {{ isEditingProduct ? 'Update Product' : 'Add Product' }}
+          </button>
+          <button type="button" *ngIf="isEditingProduct" (click)="cancelProductEdit()" class="btn-delete">
+            Cancel
+          </button>
         </div>
       </form>
     </section>
 
     <section class="admin-card">
       <h3>Inventory ({{ products.length }} items)</h3>
-      <table class="admin-table" *ngIf="products.length > 0">
-        <thead>
-          <tr><th>Name</th><th>Category</th><th>Actions</th></tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let p of products">
-            <td><span class="clickable-name" (click)="openBrochurePopup(p.brochure)">{{ p.name }} 👁️</span></td>
-            <td>{{ p.category }}</td>
-            <td>
-              <button (click)="editProduct(p)" class="btn-edit" style="margin-right: 5px;">Edit</button>
-              <button (click)="onDeleteProduct(p._id)" class="btn-delete">Remove</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div *ngIf="products.length > 0; else noProducts">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of products">
+              <td>
+                <span class="clickable-name" (click)="openBrochurePopup(p.brochure)">
+                  {{ p.name }} 👁️
+                </span>
+              </td>
+              <td>{{ p.category }}</td>
+              <td>
+                <button (click)="editProduct(p)" class="btn-edit" style="margin-right: 5px;">Edit</button>
+                <button (click)="onDeleteProduct(p._id)" class="btn-delete">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noProducts>
+        <p style="text-align: center; color: #94a3b8; padding: 20px;">No products available.</p>
+      </ng-template>
     </section>
   </div>
 
   <div *ngIf="currentTab === 'blog'">
     <section class="admin-card">
-        <h3>{{ isEditingBlog ? 'Edit Blog' : 'Create New Blog' }}</h3>
-        <div class="input-group"><label>Title</label><input [(ngModel)]="newBlog.title" placeholder="Blog Title"></div>
-        <quill-editor [(ngModel)]="newBlog.content" [style]="{height: '250px'}"></quill-editor>
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-            <button (click)="onBlogSubmit()" class="btn-publish">{{ isEditingBlog ? 'Update Blog' : 'Publish Blog' }}</button>
-            <button *ngIf="isEditingBlog" (click)="cancelBlogEdit()" class="btn-delete">Cancel</button>
+      <h3 style="margin-bottom: 15px;">{{ isEditingBlog ? 'Edit Blog Post' : 'Create New Blog' }}</h3>
+      <form (ngSubmit)="onBlogSubmit()">
+        <div class="input-group">
+          <label>Blog Title</label>
+          <input type="text" [(ngModel)]="newBlog.title" name="blogTitle" placeholder="Enter title..." required>
         </div>
+
+        <div class="input-group">
+            <label>Short Description</label>
+            <input type="text" [(ngModel)]="newBlog.shortDescription" name="blogDesc" placeholder="Brief summary...">
+        </div>
+
+        <div class="input-group" style="margin-bottom: 20px;">
+          <label>Featured Image</label>
+          <input type="file" (change)="onFileSelected($event)">
+          <small *ngIf="isEditingBlog" style="color: #94a3b8;">Optional: Upload new to replace current image</small>
+        </div>
+
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #f1f5f9;">Content</label>
+        <quill-editor [(ngModel)]="newBlog.content" name="blogContent" [style]="{height: '350px', background: 'white', color: 'black'}"></quill-editor>
+
+        <div style="display: flex; gap: 10px; margin-top: 25px;">
+          <button type="submit" class="btn-publish">
+            {{ isEditingBlog ? 'Update Blog' : 'Publish Blog' }}
+          </button>
+          <button type="button" *ngIf="isEditingBlog" (click)="cancelBlogEdit()" class="btn-delete">
+            Cancel
+          </button>
+        </div>
+      </form>
     </section>
 
     <section class="admin-card">
-      <table class="admin-table">
-        <tr *ngFor="let blog of blogs">
-          <td>{{ blog.title }}</td>
-          <td>
-            <button (click)="editBlog(blog)" class="btn-edit" style="margin-right: 5px;">Edit</button>
-            <button (click)="onDeleteBlog(blog._id)" class="btn-delete">Delete</button>
-          </td>
-        </tr>
-      </table>
+      <h3>Published Blogs ({{ blogs.length }})</h3>
+      <div *ngIf="blogs.length > 0; else noBlogs">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let blog of blogs">
+              <td>{{ blog.title }}</td>
+              <td>
+                <button (click)="editBlog(blog)" class="btn-edit" style="margin-right: 5px;">Edit</button>
+                <button (click)="onDeleteBlog(blog._id)" class="btn-delete">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noBlogs>
+        <p style="text-align: center; color: #94a3b8; padding: 20px;">No blogs published yet.</p>
+      </ng-template>
     </section>
+  </div>
+
+  <div class="modal-overlay" *ngIf="isModalOpen" (click)="closePopup()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closePopup()">&times;</button>
+      <img [src]="selectedBrochure" alt="Brochure Preview" style="max-width: 100%; height: auto;">
+    </div>
   </div>
 </div>

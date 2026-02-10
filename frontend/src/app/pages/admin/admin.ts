@@ -68,11 +68,19 @@ export class Admin implements OnInit {
 
   // --- PRODUCT ACTIONS ---
   onProductSubmit() {
-    if (this.isEditingProduct) {
-      this.productsService.updateProduct(this.newProduct._id!, this.newProduct).subscribe(() => {
-        alert('Product Updated!');
-        this.cancelProductEdit();
-        this.loadProducts();
+    if (!this.newProduct.name || (!this.isEditingProduct && (!this.newProduct.image || !this.newProduct.brochure))) {
+      alert("Please fill in the name and upload the required images.");
+      return;
+    }
+
+    if (this.isEditingProduct && this.newProduct._id) {
+      this.productsService.updateProduct(this.newProduct._id, this.newProduct).subscribe({
+        next: () => {
+          alert('Product Updated Successfully!');
+          this.cancelProductEdit();
+          this.loadProducts();
+        },
+        error: (err) => console.error("Product Update Error:", err)
       });
     } else {
       this.productsService.addProduct(this.newProduct).subscribe(() => {
@@ -85,7 +93,7 @@ export class Admin implements OnInit {
 
   editProduct(product: Product) {
     this.isEditingProduct = true;
-    this.newProduct = { ...product }; // Copy data to form
+    this.newProduct = { ...product }; // This ensures _id is included
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -102,24 +110,51 @@ export class Admin implements OnInit {
 
   // --- BLOG ACTIONS ---
   onBlogSubmit() {
-    if (this.isEditingBlog) {
-      this.blogService.updatePost(this.newBlog._id!, this.newBlog).subscribe(() => {
-        alert('Blog Updated!');
-        this.cancelBlogEdit();
-        this.loadBlogs();
+    // Validation: Require title and content always.
+    if (!this.newBlog.title || !this.newBlog.content) {
+      alert('Please ensure the title and content are provided.');
+      return;
+    }
+
+    // Logic for Updating
+    if (this.isEditingBlog && this.newBlog._id) {
+      console.log("Updating Blog ID:", this.newBlog._id);
+      
+      this.blogService.updatePost(this.newBlog._id, this.newBlog).subscribe({
+        next: () => {
+          alert('Blog Updated Successfully!');
+          this.cancelBlogEdit();
+          this.loadBlogs();
+        },
+        error: (err) => {
+          console.error("Blog Update Error (404 usually means wrong ID in URL):", err);
+          alert("Failed to update blog. Check server connection.");
+        }
       });
-    } else {
-      this.blogService.addPost(this.newBlog).subscribe(() => {
-        alert('Blog Published!');
-        this.resetBlogForm();
-        this.loadBlogs();
+    } 
+    // Logic for Adding New
+    else {
+      if (!this.newBlog.image) {
+        alert('Please upload an image for the new blog post.');
+        return;
+      }
+      
+      this.blogService.addPost(this.newBlog).subscribe({
+        next: () => {
+          alert('Blog Published!');
+          this.resetBlogForm();
+          this.loadBlogs();
+        },
+        error: (err) => console.error("Save Error:", err)
       });
     }
   }
 
   editBlog(blog: Blog) {
     this.isEditingBlog = true;
-    this.newBlog = { ...blog };
+    // Critical: This copies the entire blog object including the hidden _id
+    this.newBlog = { ...blog }; 
+    console.log("Loaded Blog for Edit:", this.newBlog);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -160,6 +195,14 @@ export class Admin implements OnInit {
   }
 
   closePopup() { this.isModalOpen = false; this.cdr.detectChanges(); }
-  resetBlogForm() { this.newBlog = { title: '', shortDescription: '', content: '', image: '', imageAlt: '' }; }
-  resetProductForm() { this.newProduct = { name: '', category: 'CCTV', image: '', brochure: '', imageAlt: '' }; }
+  
+  resetBlogForm() { 
+    this.newBlog = { title: '', shortDescription: '', content: '', image: '', imageAlt: '' }; 
+    this.isEditingBlog = false;
+  }
+  
+  resetProductForm() { 
+    this.newProduct = { name: '', category: 'CCTV', image: '', brochure: '', imageAlt: '' }; 
+    this.isEditingProduct = false;
+  }
 }
