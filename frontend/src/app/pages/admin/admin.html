@@ -1,71 +1,83 @@
 <div class="admin-wrap">
   <div class="admin-header">
     <h2>FilSafe Content Manager</h2>
+    <div class="tab-toggle">
+      <button [class.active]="currentTab === 'blog'" (click)="switchTab('blog')">Blogs</button>
+      <button [class.active]="currentTab === 'product'" (click)="switchTab('product')">Products</button>
+    </div>
   </div>
 
-  <section class="admin-card">
-    <form (ngSubmit)="onBlogSubmit()">
+  <div *ngIf="currentTab === 'product'">
+    <section class="admin-card">
+      <form (ngSubmit)="onProductSubmit()">
+        <div class="input-group"><label>Product Name</label><input type="text" [(ngModel)]="newProduct.name" name="pName" required></div>
+        <div class="input-group">
+          <label>Category</label>
+          <select [(ngModel)]="newProduct.category" name="pCat">
+            <option value="CCTV">CCTV Camera</option>
+            <option value="Vault">Security Vault</option>
+            <option value="Alarm">Alarm System</option>
+          </select>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+          <div class="input-group">
+            <label>Product Image</label>
+            <input type="file" (change)="onProductImageSelected($event)">
+          </div>
+          <div class="input-group">
+            <label>Brochure Image</label>
+            <input type="file" (change)="onBrochureSelected($event)">
+          </div>
+        </div>
+        <button type="submit" class="btn-publish">Add Product</button>
+      </form>
+    </section>
+
+    <section class="admin-card">
+      <h3>Inventory ({{ products.length }} items)</h3>
       
-      <div class="input-group">
-        <label>Article Title</label>
-        <input type="text" [(ngModel)]="newBlog.title" name="title" required placeholder="Enter a catchy title...">
+      <div *ngIf="products.length > 0; else noData">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Name</th><th>Category</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of products">
+              <td>
+                <span class="clickable-name" (click)="openBrochurePopup(p.brochure)">
+                  {{ p.name }} 👁️
+                </span>
+              </td>
+              <td>{{ p.category }}</td>
+              <td><button (click)="onDeleteProduct(p._id)" class="btn-delete">Remove</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="input-group">
-        <label style="color: #fbbf24; font-weight: bold;">SEO: Hero Image Alt Name</label>
-        <input type="text" 
-               [(ngModel)]="newBlog.imageAlt" 
-               name="imageAlt" 
-               required 
-               placeholder="Describe image for Google (e.g., FilSafe Smart Door Lock Installation)">
-        <small style="color: #94a3b8; display: block; margin-top: 5px;">
-          Keep this descriptive. It helps your images appear in Google Search results.
-        </small>
-      </div>
+      <ng-template #noData>
+        <p style="padding: 20px; text-align: center; color: #94a3b8;">
+          No products found. If you have data in Atlas, wait a moment or check the console.
+        </p>
+      </ng-template>
+    </section>
+  </div>
 
-      <div class="input-group">
-        <label>Step 1: Upload Homepage Thumbnail</label>
-        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input">
-        <div *ngIf="newBlog.image" class="preview-box">
-          <p>Thumbnail Preview:</p>
-          <img [src]="newBlog.image" style="height: 100px; border-radius: 5px;">
-        </div>
-      </div>
+  <div *ngIf="currentTab === 'blog'">
+    <section class="admin-card">
+      <table class="admin-table">
+        <tr *ngFor="let blog of blogs">
+          <td>{{ blog.title }}</td>
+          <td><button (click)="onDeleteBlog(blog._id)" class="btn-delete">Delete</button></td>
+        </tr>
+      </table>
+    </section>
+  </div>
 
-      <div class="input-group">
-        <label>Teaser Description</label>
-        <textarea [(ngModel)]="newBlog.shortDescription" name="shortDescription" rows="2" placeholder="Brief summary for the blog card..."></textarea>
-      </div>
-
-      <div class="input-group">
-        <label>Step 2: Write Content & Upload In-Article Images</label>
-        <div class="editor-container">
-          <quill-editor 
-            [(ngModel)]="newBlog.content" 
-            name="content"
-            placeholder="Use the image icon in the toolbar above for images inside the text...">
-          </quill-editor>
-        </div>
-      </div>
-
-      <button type="submit" class="btn-publish">Publish Everything</button>
-    </form>
-  </section>
-
-  <section class="admin-card">
-    <h3>Existing Articles</h3>
-    <table>
-      <tr *ngFor="let blog of blogs">
-        <td>
-          <div>{{ blog.title }}</div>
-          <small style="color: #64748b; font-size: 0.8rem;" *ngIf="blog.imageAlt">
-            SEO Alt: {{ blog.imageAlt }}
-          </small>
-        </td>
-        <td style="text-align: right;">
-          <button (click)="onDeleteBlog(blog._id)" class="btn-delete">Delete</button>
-        </td>
-      </tr>
-    </table>
-  </section>
+  <div class="modal-overlay" *ngIf="isModalOpen" (click)="closePopup()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closePopup()">&times;</button>
+      <img [src]="selectedBrochure" alt="Brochure">
+    </div>
+  </div>
 </div>

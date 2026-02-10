@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { ProductService, Product } from '../../services/product';
 
 @Component({
   selector: 'app-products',
@@ -10,33 +10,63 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './products.css'
 })
 export class Products implements OnInit {
-  allProducts: any[] = [];
-  filteredProducts: any[] = [];
-  selectedCategory: string = 'All';
-  categories: string[] = ['All', 'CCTV', 'Alarm', 'Vault'];
+  allProducts: Product[] = [];
+  filteredProducts: Product[] = [];
+  categories = ['All', 'CCTV', 'Vault', 'Alarm'];
+  selectedCategory = 'All';
 
-  constructor(private http: HttpClient) {}
+  isModalOpen = false;
+  selectedBrochure = '';
+
+  constructor(
+    private productService: ProductService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
-    this.fetchProducts();
+    this.loadData();
   }
 
-  fetchProducts() {
-    this.http.get<any[]>('http://localhost:3000/api/products').subscribe({
+  loadData() {
+    this.productService.getProducts().subscribe({
       next: (data) => {
-        this.allProducts = data;
-        this.filteredProducts = data;
+        // ngZone.run is the "Hard Fix" for the refresh bug
+        this.ngZone.run(() => {
+          this.allProducts = [...data];
+          this.filteredProducts = [...data];
+          
+          // Force UI Update
+          this.cdr.markForCheck();
+          this.cdr.detectChanges();
+        });
       },
-      error: (err) => console.error('Could not load showcase:', err)
+      error: (err) => console.error("Could not load Atlas data:", err)
     });
   }
 
-  filterByCategory(category: string) {
-    this.selectedCategory = category;
-    if (category === 'All') {
-      this.filteredProducts = this.allProducts;
+  filterByCategory(cat: string) {
+    this.selectedCategory = cat;
+    if (cat === 'All') {
+      this.filteredProducts = [...this.allProducts];
     } else {
-      this.filteredProducts = this.allProducts.filter(p => p.category === category);
+      this.filteredProducts = this.allProducts.filter(p => p.category === cat);
     }
+    this.cdr.detectChanges();
+  }
+
+  openBrochure(url: string) {
+    if (!url) return;
+    this.selectedBrochure = url;
+    this.isModalOpen = true;
+    document.body.style.overflow = 'hidden';
+    this.cdr.detectChanges();
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedBrochure = '';
+    document.body.style.overflow = 'auto';
+    this.cdr.detectChanges();
   }
 }

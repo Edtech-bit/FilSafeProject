@@ -1,5 +1,5 @@
-<div class="showcase-container" style="padding: 40px; font-family: 'Segoe UI', sans-serif;">
-  <h1 style="text-align: center; color: #d32f2f;">Our Security Solutions</h1>
+<div class="showcase-container" style="padding: 40px; font-family: 'Segoe UI', sans-serif; background: #fcfcfc; min-height: 100vh;">
+  <h1 style="text-align: center; color: #d32f2f; margin-bottom: 10px;">Our Security Solutions</h1>
   <p style="text-align: center; color: #666; margin-bottom: 30px;">Professional grade protection for your home and business.</p>
 
   <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 40px;">
@@ -7,32 +7,42 @@
             (click)="filterByCategory(cat)"
             [style.background]="selectedCategory === cat ? '#d32f2f' : '#eee'"
             [style.color]="selectedCategory === cat ? 'white' : '#333'"
-            style="padding: 10px 25px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s;">
+            style="padding: 10px 25px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
       {{cat}}
     </button>
   </div>
 
   <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;">
     <div *ngFor="let product of filteredProducts" 
-         style="background: white; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s;">
+         (click)="openBrochure(product.brochure)"
+         class="product-card-hover"
+         style="background: white; border: 1px solid #eee; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s;">
       
-      <img [src]="product.image || 'assets/placeholder-product.jpg'" 
-           style="width: 100%; height: 200px; object-fit: cover; background: #f9f9f9;">
+      <div style="position: relative; background: #f9f9f9; height: 220px; display: flex; align-items: center; justify-content: center;">
+        <img [src]="product.image" 
+             [alt]="product.imageAlt"
+             style="max-width: 100%; max-height: 100%; object-fit: contain;">
+        <div class="hover-hint">View Brochure</div>
+      </div>
       
-      <div style="padding: 20px;">
-        <span style="font-size: 12px; color: #d32f2f; text-transform: uppercase; font-weight: bold;">{{product.category}}</span>
-        <h3 style="margin: 10px 0; color: #222;">{{product.name}}</h3>
-        <p style="color: #666; font-size: 14px; line-height: 1.5; height: 60px; overflow: hidden;">{{product.description}}</p>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-          <span style="font-size: 18px; font-weight: bold; color: #333;">₱{{product.price | number}}</span>
-          <button style="background: #333; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Inquiry</button>
+      <div style="padding: 20px; text-align: center;">
+        <span style="font-size: 11px; color: #d32f2f; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;">{{product.category}}</span>
+        <h3 style="margin: 8px 0; color: #222; font-size: 18px;">{{product.name}}</h3>
+        <div style="margin-top: 15px; border-top: 1px solid #f0f0f0; padding-top: 15px;">
+           <button style="background: #333; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: 600;">Details & Brochure</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="filteredProducts.length === 0" style="text-align: center; padding: 50px; color: #999;">
-    <h3>No products found in this category.</h3>
+  <div *ngIf="filteredProducts.length === 0" style="text-align: center; padding: 100px; color: #999;">
+    <h3>No products available in the {{selectedCategory}} category.</h3>
+  </div>
+
+  <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+      <img [src]="selectedBrochure" [alt]="'Product Brochure'" style="width: 100%; height: auto; border-radius: 8px;">
+    </div>
   </div>
 </div>
