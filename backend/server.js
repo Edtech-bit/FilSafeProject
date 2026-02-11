@@ -130,5 +130,9 @@ app.delete('/api/products/:id', async (req, res) => {
     res.status(500).json({ message: 'Delete failed' });
   }
 });
+// Root Route - To confirm the backend is alive
+app.get('/', (req, res) => {
+  res.send('🚀 FilSafe API is running successfully!');
+});
 
 app.listen(PORT, () => console.log(`🚀 Server on port ${PORT}`));
