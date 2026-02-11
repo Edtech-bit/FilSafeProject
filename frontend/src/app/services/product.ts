@@ -15,7 +15,7 @@ export interface Product {
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3000/api/products';
+  private apiUrl = 'https://filsafeproject-flve.onrender.com/api/products';
   
   private productsSubject = new BehaviorSubject<Product[]>([]);
   products$ = this.productsSubject.asObservable();
