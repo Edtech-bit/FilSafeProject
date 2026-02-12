@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -14,7 +14,10 @@ export interface Blog {
 
 @Injectable({ providedIn: 'root' })
 export class BlogService {
-  private apiUrl = 'http://localhost:3000/api/blogs';
+  private readonly productionUrl = 'https://filsafeproject-1.onrender.com';
+  private readonly localUrl = 'http://localhost:3000/api/blogs';
+
+  private apiUrl = isDevMode() ? this.localUrl : this.productionUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +33,6 @@ export class BlogService {
     return this.http.post<Blog>(this.apiUrl, blog);
   }
 
-  // New Update Method
   updatePost(id: string, blog: Blog): Observable<Blog> {
     return this.http.put<Blog>(`${this.apiUrl}/${id}`, blog);
   }

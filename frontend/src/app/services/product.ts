@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 
@@ -15,7 +15,10 @@ export interface Product {
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3000/api/products';
+  private readonly productionUrl = 'https://filsafeproject-1.onrender.com';
+  private readonly localUrl = 'http://localhost:3000/api/products';
+
+  private apiUrl = isDevMode() ? this.localUrl : this.productionUrl;
   
   private productsSubject = new BehaviorSubject<Product[]>([]);
   products$ = this.productsSubject.asObservable();
@@ -34,7 +37,6 @@ export class ProductService {
     );
   }
 
-  // New Update Method
   updateProduct(id: string, product: Product) {
     return this.http.put<Product>(`${this.apiUrl}/${id}`, product).pipe(
       tap(() => this.getProducts().subscribe())
