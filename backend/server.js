@@ -12,9 +12,18 @@ const app = express();
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 3000;
 
-// Increase limit for base64 images
 app.use(express.json({ limit: '50mb' }));
-app.use(cors({ origin: 'http://localhost:4200' }));
+
+app.use(cors({
+  origin: [
+    'http://localhost:4200', 
+    'https://filsafe.shop',
+    'https://www.filsafe.shop',
+    /\.hostingerapp\.com$/ 
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // DATABASE CONNECTION
 mongoose.connect(MONGO_URI)
@@ -22,8 +31,6 @@ mongoose.connect(MONGO_URI)
   .catch(err => console.error('❌ DB Error:', err.message));
 
 // --- BLOG ROUTES ---
-
-// GET ALL BLOGS
 app.get('/api/blogs', async (req, res) => {
   try {
     const blogs = await Blog.find().sort({ createdAt: -1 });
@@ -33,7 +40,6 @@ app.get('/api/blogs', async (req, res) => {
   }
 });
 
-// GET SINGLE BLOG
 app.get('/api/blogs/:id', async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
@@ -44,7 +50,6 @@ app.get('/api/blogs/:id', async (req, res) => {
   }
 });
 
-// CREATE BLOG
 app.post('/api/blogs', async (req, res) => {
   try {
     const newBlog = new Blog(req.body);
@@ -55,27 +60,16 @@ app.post('/api/blogs', async (req, res) => {
   }
 });
 
-/** * UPDATE BLOG 
- * This is the route the 404 was looking for!
- */
 app.put('/api/blogs/:id', async (req, res) => {
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(
-      req.params.id, 
-      req.body, 
-      { new: true, runValidators: true }
-    );
-    if (!updatedBlog) {
-      return res.status(404).json({ message: 'Blog ID not found in database' });
-    }
+    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedBlog) return res.status(404).json({ message: 'Not found' });
     res.json(updatedBlog);
   } catch (err) {
-    console.error("PUT Error:", err);
-    res.status(400).json({ message: 'Update failed', error: err.message });
+    res.status(400).json({ message: 'Update failed' });
   }
 });
 
-// DELETE BLOG
 app.delete('/api/blogs/:id', async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
@@ -86,7 +80,6 @@ app.delete('/api/blogs/:id', async (req, res) => {
 });
 
 // --- PRODUCT ROUTES ---
-
 app.get('/api/products', async (req, res) => {
   try {
     const products = await Product.find();
@@ -106,15 +99,9 @@ app.post('/api/products', async (req, res) => {
   }
 });
 
-/** * UPDATE PRODUCT 
- */
 app.put('/api/products/:id', async (req, res) => {
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id, 
-      req.body, 
-      { new: true }
-    );
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updatedProduct) return res.status(404).json({ message: 'Product not found' });
     res.json(updatedProduct);
   } catch (err) {
@@ -125,14 +112,14 @@ app.put('/api/products/:id', async (req, res) => {
 app.delete('/api/products/:id', async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Deleted' });
+    res.json({ message: 'Product Deleted' });
   } catch (err) {
     res.status(500).json({ message: 'Delete failed' });
   }
 });
-// Root Route - To confirm the backend is alive
+
 app.get('/', (req, res) => {
-  res.send('🚀 FilSafe API is running successfully!');
+  res.send('FilSafe API is running successfully!');
 });
 
 app.listen(PORT, () => console.log(`🚀 Server on port ${PORT}`));

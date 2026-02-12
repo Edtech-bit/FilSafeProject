@@ -14,7 +14,7 @@ export interface Blog {
 
 @Injectable({ providedIn: 'root' })
 export class BlogService {
-  private apiUrl = 'https://filsafeproject-flve.onrender.com/api/blogs';
+  private apiUrl = 'http://localhost:3000/api/blogs';
 
   constructor(private http: HttpClient) {}
 
