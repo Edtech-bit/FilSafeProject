@@ -14,39 +14,37 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: '50mb' }));
 
+// 1. UPDATE THIS CORS: This is the most likely reason your data is blocked.
 app.use(cors({
   origin: [
     'http://localhost:4200', 
-    'https://filsafe.shop',
-    'https://www.filsafe.shop',
-    /\.hostingerapp\.com$/ 
+    'https://filsafe.shop', 
+    'https://www.filsafe.shop'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// DATABASE CONNECTION
 mongoose.connect(MONGO_URI)
   .then(() => console.log('✅ Connected to MongoDB Atlas'))
   .catch(err => console.error('❌ DB Error:', err.message));
 
-// --- BLOG ROUTES ---
+// BLOG ROUTES
 app.get('/api/blogs', async (req, res) => {
   try {
     const blogs = await Blog.find().sort({ createdAt: -1 });
     res.json(blogs);
   } catch (err) {
-    res.status(500).json({ message: 'Error fetching blogs' });
+    res.status(500).json({ message: 'Error' });
   }
 });
 
 app.get('/api/blogs/:id', async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id);
-    if (!blog) return res.status(404).json({ message: 'Blog not found' });
     res.json(blog);
   } catch (err) {
-    res.status(500).json({ message: 'Invalid ID format' });
+    res.status(404).json({ message: 'Not found' });
   }
 });
 
@@ -62,9 +60,8 @@ app.post('/api/blogs', async (req, res) => {
 
 app.put('/api/blogs/:id', async (req, res) => {
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedBlog) return res.status(404).json({ message: 'Not found' });
-    res.json(updatedBlog);
+    const updated = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updated);
   } catch (err) {
     res.status(400).json({ message: 'Update failed' });
   }
@@ -79,7 +76,7 @@ app.delete('/api/blogs/:id', async (req, res) => {
   }
 });
 
-// --- PRODUCT ROUTES ---
+// PRODUCT ROUTES
 app.get('/api/products', async (req, res) => {
   try {
     const products = await Product.find();
@@ -101,9 +98,8 @@ app.post('/api/products', async (req, res) => {
 
 app.put('/api/products/:id', async (req, res) => {
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedProduct) return res.status(404).json({ message: 'Product not found' });
-    res.json(updatedProduct);
+    const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updated);
   } catch (err) {
     res.status(400).json({ message: 'Update failed' });
   }
