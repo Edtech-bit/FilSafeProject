@@ -1,13 +1,15 @@
-/* CSS for hero */
-.hero-container {
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+   .hero-container {
     width: 100%;
     height: 500px; 
-    position: relative; /* This allows the text to sit "on top" of the container */
+    position: relative;
     overflow: hidden;
 }
 
 .hero-image-side {
-    width: 100%; /* Changed from 50% to 100% to fill the space */
+    width: 100%;
     height: 100%;
 }
 
@@ -15,42 +17,41 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position:  center 30%; 
-    /* Optional: adds a dark tint so the white text is easier to read */
-    filter: brightness(0.7); 
+    object-position: center 30%; 
+    filter: brightness(0.6); 
 }
 
 .hero-text-side {
-    position: absolute; /* Takes the text out of the normal flow */
-    top: 0;
+    position: absolute;
+    top: 0; 
     left: 0;
-    width: 100%;
+    width: 100%; 
     height: 100%;
-    
     display: flex;
-    align-items: center;    /* Vertically centers text */
-    justify-content: flex-end; /* Pushes text to the right like your image */
-    padding-right: 10%;     /* Keeps the text away from the very edge */
+    align-items: center;
+    justify-content: flex-end; /* Text to the right */
+    padding-right: 10%;
     box-sizing: border-box;
-    pointer-events: none;   /* Ensures users can still right-click the image if needed */
+    pointer-events: none;
 }
 
 .hero-text-side h1 {
     color: #ffffff;
     font-family: 'Inter', sans-serif;
-    font-size: clamp(2.5rem, 8vw, 6rem); /* Made slightly larger for the full width */
+    font-size: clamp(2.5rem, 8vw, 6rem);
     font-weight: 800;
     margin: 0;
     text-align: right;
     line-height: 1.1;
 }
 
-/* CSS for Contents */
-/* CSS for installation */
+/* ============================================================
+   CONTENT HEADER
+   ============================================================ */
 .content-header {
     background-color: #0d1b2a;
     color: #ffffff;
-    padding: 60px 10% 20px 10%; /* Bottom padding reduced to bridge to Installation */
+    padding: 60px 10% 20px 10%;
     width: 100%;
     box-sizing: border-box;
 }
@@ -62,63 +63,67 @@
     font-family: 'Inter', sans-serif;
 }
 
-.installation {
+/* ============================================================
+   SERVICE ROW LOGIC (Alternating Patterns)
+   ============================================================ */
+
+/* Common shared styles for Dark and Light sections */
+.service-dark, .service-light {
     width: 100vw;
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    
-    background-color: #0d1b2a; /* Same dark blue */
-    color: #ffffff;
-    padding: 40px 10% 80px 10%; /* Matching repairs padding */
+    display: flex;
+    align-items: stretch; /* Image and Text heights match */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.service-content {
+    flex: 1;
+    padding: 80px 10%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Aligns left */
-    text-align: left;
-    box-sizing: border-box;
+    justify-content: center;
 }
 
-.installation h3 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+.service-image {
+    flex: 1;
+    display: flex;
 }
 
-/* 1. THE RED DOT FOR THE SUBHEADER */
-.installation p strong {
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    position: relative;
-    font-size: 1.4rem;
+}
+
+/* 1. DARK SECTIONS (Image on RIGHT) */
+.service-dark {
+    background-color: #0d1b2a;
     color: #ffffff;
-    margin-bottom: 8px;
+    flex-direction: row; /* Content Left, Image Right */
 }
 
-/* 2. THE RED DOTS FOR THE LIST */
-.installation ul {
-    list-style: none; /* Remove default bullets */
-    padding: 0;
-    margin-top: 20px;
+/* 2. LIGHT SECTIONS (Image on LEFT) */
+.service-light {
+    background-color: #ffffff;
+    color: #000000;
+    flex-direction: row; /* HTML order puts image first, content second */
+    text-align: right;
 }
 
-.installation li {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 10px;
-    color: #cbd5e1; /* Slightly muted white for the list text */
+.service-light .service-content {
+    align-items: flex-end; /* Right align the text container contents */
 }
 
-.installation li::before {
-    content: "•";
-    color: #e63946;
-    position: absolute;
-    left: 0;
-    font-size: 1.5rem;
-    top: -2px;
-}
-
-.installation h3, .repairs h3 {
+/* ============================================================
+   TYPOGRAPHY & LISTS (The Red Dots)
+   ============================================================ */
+h3 {
     font-size: 3rem;
     font-weight: 800;
     margin-bottom: 20px;
@@ -126,204 +131,134 @@
     font-family: 'Inter', sans-serif;
 }
 
-.installation p, .repairs p {
+p {
     max-width: 600px;
     line-height: 1.6;
     font-size: 1.1rem;
     font-family: 'Inter', sans-serif;
 }
 
-.installation ul, .repairs ul {
-    font-family:'Inter', sans-serif;
-}
-
-/* CSS for repairs */
-.repairs {
-    width: 100vw; 
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-
-    background-color: #ffffff; 
-    padding: 80px 10%; 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Aligns right */
-    text-align: right;
-    box-sizing: border-box;
-}
-
-.repairs h3 {
-    font-size: 3rem;
-    font-weight: 800;
-    color: #000000;
-    margin-bottom: 10px;
-    letter-spacing: -1px;
-}
-
-.repairs p {
-    max-width: 600px; /* Keeps the paragraph from stretching too wide */
-    line-height: 1.6;
-    color: #333333;
-    margin-bottom: 30px;
-}
-
-.repairs p strong {
-    display: block;
-    font-size: 1.8rem;
-    color: #000000;
-    margin-bottom: 5px;
-}
-
-.repairs ul {
+ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin-top: 20px;
 }
 
-.repairs .list-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-    color:#000000;
-}
-
-.repairs li {
+/* Left-side Red Dots (for Dark Sections) */
+.service-dark li {
     position: relative;
-    padding-right: 25px; /* Space for the red dot on the right */
+    padding-left: 25px;
     margin-bottom: 12px;
-    font-size: 1.1rem;
-    color: #333333;
+    color: #cbd5e1;
+    font-family: 'Inter', sans-serif;
 }
 
-/* THE RIGHT-SIDE RED DOT */
-.repairs li::after {
+.service-dark li::before {
     content: "•";
-    color: #e63946; /* Bright red */
+    color: #e63946;
     position: absolute;
-    right: 0; /* Anchors the dot to the right edge */
+    left: 0;
     font-size: 1.8rem;
-    top: 50%;
-    transform: translateY(-50%); /* Keeps the dot perfectly centered vertically */
+    top: -5px;
 }
 
-/* CSS for rewiring */
-.rewiring {
-    /* 1. FULL WIDTH TRICK */
+/* Right-side Red Dots (for Light Sections) */
+.service-light li {
+    position: relative;
+    padding-right: 25px;
+    margin-bottom: 12px;
+    color: #333333;
+    font-family: 'Inter', sans-serif;
+}
+
+.service-light li::after {
+    content: "•";
+    color: #e63946;
+    position: absolute;
+    right: 0;
+    font-size: 1.8rem;
+    top: -5px;
+}
+
+/* ============================================================
+   INCLUSIONS SECTION
+   ============================================================ */
+.inclusions {
     width: 100vw;
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-
-    /* 2. STYLING & COLORS */
-    background-color: #0d1b2a; /* Back to the navy blue */
+    background-color: #4a627a; /* Muted blue-grey */
     color: #ffffff;
     padding: 80px 10%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Aligns text to the left */
-    text-align: left;
+    text-align: center;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
 }
 
-.rewiring h3 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-    letter-spacing: -1px;
-}
-
-.rewiring p {
-    max-width: 700px;
-    line-height: 1.6;
-    color: #e0e1dd;
-    margin-bottom: 30px;
-}
-
-.rewiring p strong {
-    display: block;
-    font-size: 1.8rem;
+.inclusions h3 {
+    font-size: 3.5rem;
     color: #ffffff;
-    margin-bottom: 5px;
+    margin-bottom: 40px;
 }
 
-/* 3. LIST STYLING WITH RED DOTS */
-.rewiring ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.inclusions ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: left;
 }
 
-.rewiring span {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 15px;
+.inclusions li {
     font-size: 1.2rem;
-    color: #e0e1dd;
-}
-
-.rewiring li {
-    position: relative;
-    padding-left: 25px; /* Space for the dot on the left */
-    margin-bottom: 12px;
-    font-size: 1.1rem;
-    color: #cbd5e1;
-}
-
-.rewiring li::before {
-    content: "•";
-    color: #e63946; /* Matching your red theme */
-    position: absolute;
-    left: 0;
-    font-size: 1.8rem;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* Layout for the "What we offer" sections */
-.service-row {
     display: flex;
     align-items: center;
-    min-height: 500px;
-    width: 100%;
 }
 
-/* Alternating layout: use 'reverse' class to put image on the left */
-.service-row.reverse {
-    flex-direction: row-reverse;
+.inclusions li::before {
+    content: "•";
+    color: #ffffff;
+    margin-right: 15px;
+    font-size: 1.5rem;
 }
 
-.service-text {
-    flex: 1;
-    padding: 5% 10%;
-}
-
-.service-image {
-    flex: 1;
-    height: 500px; /* Adjust height as needed */
-    overflow: hidden;
-}
-
-.service-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This makes it look like your screenshot */
-    display: block;
-}
-
-/* Responsive for Mobile */
-@media (max-width: 768px) {
-    .service-row, .service-row.reverse {
-        flex-direction: column;
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 900px) {
+    .service-dark, .service-light {
+        flex-direction: column !important;
+        text-align: left;
     }
+    
+    .service-light .service-content {
+        align-items: flex-start;
+    }
+    
+    .service-light li::after {
+        display: none;
+    }
+    
+    .service-light li::before {
+        content: "•";
+        color: #e63946;
+        position: absolute;
+        left: 0;
+    }
+
+    .service-light li {
+        padding-left: 25px;
+        padding-right: 0;
+    }
+
     .service-image {
-        width: 100%;
-        height: 300px;
+        height: 350px;
+    }
+    
+    .inclusions ul {
+        grid-template-columns: 1fr;
     }
 }
