@@ -14,7 +14,7 @@ export interface Product {
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   // FIXED: Added /api/products to the production URL
-  private readonly productionUrl = 'https://filsafeproject-3.onrender.com/api/products';
+  private readonly productionUrl = 'https://filsafeproject-4.onrender.com/api/products';
   private readonly localUrl = 'http://localhost:3000/api/products';
 
   private apiUrl = isDevMode() ? this.localUrl : this.productionUrl;

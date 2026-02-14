@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-
 const User = require('./models/user');
 const Blog = require('./models/blog');
 const Product = require('./models/product');
@@ -29,27 +28,33 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('✅ Connected to MongoDB Atlas'))
   .catch(err => console.error('❌ DB Error:', err.message));
 
-// --- LOGIN ROUTE (THIS WAS MISSING) ---
+// --- LOGIN ROUTE (WITH DEBUG LOGS) ---
 app.post('/api/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     
-    // 1. Find the user
+    console.log(`--- Login attempt for username: "${username}" ---`);
+
     const user = await User.findOne({ username });
     if (!user) {
+      console.log(`❌ FAILED: User "${username}" not found in database.`);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // 2. Compare password with the hash in MongoDB
+    console.log(`✅ User found. Comparing hashes...`);
+
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log(`🔍 Password comparison result: ${isMatch}`);
+
     if (!isMatch) {
+      console.log(`❌ FAILED: Password mismatch for user "${username}".`);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // 3. Success
+    console.log(`🎉 SUCCESS: Login successful for user "${username}".`);
     res.json({ message: 'Login successful', status: 'success' });
   } catch (err) {
-    console.error(err);
+    console.error('🔥 CRITICAL ERROR:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
