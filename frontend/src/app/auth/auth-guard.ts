@@ -3,14 +3,15 @@ import { Router, CanActivateFn } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  
+  // Check if we are running in the browser (important for live servers)
+  const isLoggedIn = typeof window !== 'undefined' ? localStorage.getItem('isLoggedIn') : null;
 
-  // We check for the exact string 'true'
   if (isLoggedIn === 'true') {
     return true;
   } else {
-    // If anything else (null, undefined, 'false'), go to login
-    router.navigate(['/login']);
+    // Save the URL they were trying to hit so we can redirect them back after login
+    router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
     return false;
   }
 };

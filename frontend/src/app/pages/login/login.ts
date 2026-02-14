@@ -14,18 +14,26 @@ import { FormsModule } from '@angular/forms';
 export class Login {
   credentials = { username: '', password: '' };
 
+  private readonly apiUrl = 'https://filsafeproject-2.onrender.com/api/users/login';
+
   constructor(private http: HttpClient, private router: Router) {}
 
   onLogin() {
-    this.http.post('http://localhost:3000/api/login', this.credentials).subscribe({
+    this.http.post(this.apiUrl, this.credentials).subscribe({
       next: (res: any) => {
-        // Only set to true if the backend confirms success
-        if (res.status === 'success') {
-          localStorage.setItem('isLoggedIn', 'true');
-          this.router.navigate(['/admin']);
+        // We save the login state
+        localStorage.setItem('isLoggedIn', 'true');
+        
+        // If your backend sends a token, save it
+        if (res.token) {
+          localStorage.setItem('adminToken', res.token);
         }
+
+        // Move to the admin dashboard
+        this.router.navigate(['/admin']);
       },
       error: (err) => {
+        console.error('Login Error details:', err);
         alert('Access Denied: Invalid Admin Credentials');
       }
     });
