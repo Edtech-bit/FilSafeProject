@@ -14,26 +14,25 @@ import { FormsModule } from '@angular/forms';
 export class Login {
   credentials = { username: '', password: '' };
 
+  // This is the URL that gave you the "Cannot GET" message
   private readonly apiUrl = 'https://filsafeproject-2.onrender.com/api/users/login';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onLogin() {
+    // This .post() method is what the server is looking for
     this.http.post(this.apiUrl, this.credentials).subscribe({
       next: (res: any) => {
-        // We save the login state
         localStorage.setItem('isLoggedIn', 'true');
         
-        // If your backend sends a token, save it
         if (res.token) {
           localStorage.setItem('adminToken', res.token);
         }
 
-        // Move to the admin dashboard
         this.router.navigate(['/admin']);
       },
       error: (err) => {
-        console.error('Login Error details:', err);
+        console.error('Login Error:', err);
         alert('Access Denied: Invalid Admin Credentials');
       }
     });
