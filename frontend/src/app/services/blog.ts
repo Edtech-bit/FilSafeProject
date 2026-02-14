@@ -14,7 +14,8 @@ export interface Blog {
 
 @Injectable({ providedIn: 'root' })
 export class BlogService {
-  private readonly productionUrl = 'https://filsafeproject-1.onrender.com';
+  // FIXED: Added /api/blogs to the production URL
+  private readonly productionUrl = 'https://filsafeproject-2.onrender.com/api/blogs';
   private readonly localUrl = 'http://localhost:3000/api/blogs';
 
   private apiUrl = isDevMode() ? this.localUrl : this.productionUrl;
