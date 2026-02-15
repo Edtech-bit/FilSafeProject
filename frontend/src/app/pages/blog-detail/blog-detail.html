@@ -1,11 +1,12 @@
 <section class="blog-page" *ngIf="post; else notFound">
   <div class="blog-hero">
     <img [src]="post.image" 
-      class="hero-image-element"
-      width="1200" 
-      height="675"
-      fetchpriority="high"
-      alt="Security Hero Image">
+         class="hero-image-element" 
+         [alt]="post.title" 
+         fetchpriority="high" 
+         loading="eager"
+         width="1200" 
+         height="675">
 
     <div class="hero-overlay"></div>
     
@@ -32,7 +33,7 @@
           <p class="published-by">Published by</p>
           <p class="author-name">FilSafe Technical Team</p>
         </div>
-        <button routerLink="/" class="back-btn">
+        <button routerLink="/" class="back-btn" aria-label="Go back to the home insights page">
           <span class="btn-icon">←</span> Back to Insights
         </button>
       </div>

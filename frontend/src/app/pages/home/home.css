@@ -124,8 +124,8 @@ body {
 
 .hero-badge {
   display: inline-block;
-  background: rgba(251, 191, 36, 0.1);
-  color: var(--gold);
+  background-color: #fbbf24;
+  color: #000000;
   padding: 8px 24px;
   border-radius: 30px;
   font-size: 0.8rem;
@@ -474,10 +474,10 @@ body {
 }
 
 .split-image {
-  flex: 1;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Tells the browser to reserve this space immediately */
   background-size: cover;
   background-position: center;
-  position: relative;
 }
 
 /* Gradient Fade for image to text blending */
