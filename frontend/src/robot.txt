@@ -1,0 +1,11 @@
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Hide the admin and login areas from search results
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+
+# Tell search engines where your sitemap is located
+Sitemap: https://filsafe.shop/sitemap.xml
