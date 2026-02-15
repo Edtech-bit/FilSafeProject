@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common'; // 1. Must import this for [class] bindings
+import { CommonModule, NgOptimizedImage } from '@angular/common'; // Added NgOptimizedImage
 import { filter } from 'rxjs/operators';
 
 // Declare gtag as a global function for TypeScript
@@ -13,14 +13,14 @@ declare var gtag: Function;
     RouterOutlet, 
     RouterLink, 
     RouterLinkActive, 
-    CommonModule // 2. Must include this in your imports array
+    CommonModule,
+    NgOptimizedImage // Added to enable optimized image loading for your logo
   ],
   templateUrl: './app.html',
 })
 export class App implements OnInit {
   private router = inject(Router);
 
-  // 3. Declare the property inside the class
   isMenuOpen: boolean = false;
 
   ngOnInit() {

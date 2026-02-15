@@ -1,6 +1,13 @@
 <header class="navbar">
   <div class="logo-container" routerLink="/">
-    <img src="FS_LOGO_BG.png" alt="Logo" class="logo">
+    <img 
+      [ngSrc]="'FS_LOGO_BG.png'" 
+      alt="Filsafe Enterprises Logo" 
+      class="logo"
+      width="50"
+      height="50"
+      priority>
+    
     <div class="brand-info">
       <h1 class="company-name">Filsafe Enterprises</h1>
       <p class="slogan">Security You Can Trust</p>
@@ -30,8 +37,10 @@
   <div class="footer-container">
     <div class="footer-section">
       <h3>FilSafe Enterprises</h3>
-      <p>Your trusted partner in comprehensive security solutions across the Philippines.<br>
-      Protecting what matters most to you, every day.</p>
+      <p>
+        Your trusted partner in comprehensive security solutions across the Philippines.<br>
+        Protecting what matters most to you, every day.
+      </p>
     </div>
 
     <div class="footer-section">
@@ -47,12 +56,16 @@
 
     <div class="footer-section">
       <h3>Contact Us</h3>
-      <p>+63 920 932 6741<br>
-      <a href="https://www.facebook.com/VaultDoorCCTValarm" target="_blank">facebook.com/FilSafe Enterprises</a></p>
+      <p>
+        +63 920 932 6741<br>
+        <a href="https://www.facebook.com/VaultDoorCCTValarm" target="_blank" rel="noopener">
+          facebook.com/FilSafe Enterprises
+        </a>
+      </p>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <p>© 2026 FilSafe Enterprise. All rights reserved.</p>
+    <p>Â© 2026 FilSafe Enterprise. All rights reserved.</p>
   </div>
 </footer>

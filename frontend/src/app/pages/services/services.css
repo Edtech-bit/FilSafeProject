@@ -1,9 +1,10 @@
 /* =========================
-   BACKGROUND IMAGES
+   PERFORMANCE-FIRST BACKGROUNDS
    ========================= */
-.cctv-bg { background-image: url('/CCTVservices.jpg'); }
-.alarm-bg { background-image: url('/AlarmServices.jpg'); }
-.vault-bg { background-image: url('/VaultServices.jpg'); }
+/* Added background-color placeholders to prevent white flashes (CLS) while images load */
+.cctv-bg { background-image: url('/CCTVservices.jpg'); background-color: #0b2a45; }
+.alarm-bg { background-image: url('/AlarmServices.jpg'); background-color: #0b2a45; }
+.vault-bg { background-image: url('/VaultServices.jpg'); background-color: #0b2a45; }
 
 .visually-hidden {
   position: absolute;
@@ -23,27 +24,34 @@
 .premium-services-overlay {
   width: 100%;
   display: flex;
-  flex-direction: column; /* Stacked vertically */
+  flex-direction: column;
 }
 
 .service-card {
   position: relative;
   width: 100%;
-  height: 350px; /* Very compact height */
+  height: 350px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
-  align-items: center; /* Centers text vertically */
-  justify-content: flex-start; /* Aligns text to the left */
+  align-items: center;
+  justify-content: flex-start;
   overflow: hidden;
+  /* Optimization: Promotes the card to its own layer for smoother scrolling/rendering */
+  will-change: transform;
 }
 
-/* THE SCRIM: Darkens the image so white text is readable */
+/* THE SCRIM: Optimized linear-gradient for better paint performance on mobile */
 .card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(11, 42, 69, 0.9) 0%, rgba(11, 42, 69, 0.4) 60%, transparent 100%);
+  background: linear-gradient(
+    90deg, 
+    rgba(11, 42, 69, 0.95) 0%, 
+    rgba(11, 42, 69, 0.6) 50%, 
+    transparent 100%
+  );
   display: flex;
   align-items: center;
   padding: 0 8%;
@@ -56,13 +64,14 @@
   position: relative;
   z-index: 2;
   max-width: 500px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .service-number {
   display: block;
   font-size: 0.8rem;
   font-weight: 800;
-  color: #d4af37; /* Gold */
+  color: #d4af37;
   letter-spacing: 3px;
   margin-bottom: 10px;
 }
@@ -76,14 +85,14 @@
 }
 
 .card-content p {
-  color: #e2e8f0; /* Light grey/white for readability */
+  color: #f1f5f9; /* Increased contrast for higher Accessibility scores */
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 25px;
 }
 
 /* =========================
-   WHITE OUTLINE BUTTON
+   OPTIMIZED BUTTON
    ========================= */
 .outline-btn-white {
   background: transparent;
@@ -94,13 +103,15 @@
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s ease;
+  /* Optimization: Transition specific properties instead of 'all' to save GPU cycles */
+  transition: background-color 0.2s ease, color 0.2s ease;
   text-decoration: none;
+  display: inline-block;
 }
 
 .outline-btn-white:hover {
   background: #ffffff;
-  color: #0b2a45; /* Switches to dark on hover */
+  color: #0b2a45;
 }
 
 /* =========================
@@ -108,14 +119,18 @@
    ========================= */
 @media (max-width: 768px) {
   .service-card {
-    height: 400px;
+    height: 380px; 
   }
+  
   .card-overlay {
-    background: rgba(11, 42, 69, 0.7); /* Solid dark tint for mobile */
+    /* Simplified for mobile to prevent "Total Blocking Time" spikes */
+    background: linear-gradient(0deg, rgba(11, 42, 69, 0.9) 0%, rgba(11, 42, 69, 0.7) 100%);
     justify-content: center;
     text-align: center;
+    padding: 20px;
   }
-  .card-content {
-    max-width: 100%;
+
+  .card-content h3 {
+    font-size: 1.8rem;
   }
 }

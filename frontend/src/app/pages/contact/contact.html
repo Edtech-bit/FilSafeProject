@@ -8,20 +8,44 @@
     <div class="contact-card">
       <h3>Send us a Message</h3>
       <form (submit)="sendEmail($event)" #contactForm="ngForm">
-        <label>Full name</label>
-        <input type="text" name="from_name" [(ngModel)]="formData.from_name" required placeholder="John Doe" />
+        <label for="from_name">Full name</label>
+        <input 
+          id="from_name"
+          type="text" 
+          name="from_name" 
+          [(ngModel)]="formData.from_name" 
+          required 
+          #name="ngModel"
+          [class.error]="name.invalid && name.touched"
+          placeholder="John Doe" />
         
-        <label>Email Address</label>
-        <input type="email" name="reply_to" [(ngModel)]="formData.reply_to" placeholder="example@email.com" required />
-        
-        <label>Phone Number</label>
-        <input type="tel" name="phone" [(ngModel)]="formData.phone" placeholder="09XX XXX XXXX" required />
-        
-        <label>Message</label>
-        <textarea name="message" [(ngModel)]="formData.message" rows="6" placeholder="How can we help you?" required></textarea>
+        <label for="reply_to">Email Address</label>
+        <input 
+          id="reply_to"
+          type="email" 
+          name="reply_to" 
+          [(ngModel)]="formData.reply_to" 
+          placeholder="example@email.com" 
+          required 
+          email /> <label for="phone">Phone Number</label>
+        <input 
+          id="phone"
+          type="tel" 
+          name="phone" 
+          [(ngModel)]="formData.phone" 
+          placeholder="09XX XXX XXXX" 
+          required 
+          pattern="^[0-9]*$" /> <label for="message">Message</label>
+        <textarea 
+          id="message"
+          name="message" 
+          [(ngModel)]="formData.message" 
+          rows="6" 
+          placeholder="How can we help you?" 
+          required></textarea>
 
         <button type="submit" [disabled]="isSending || !contactForm.form.valid">
-          {{ isSending ? 'Sending...' : 'Send Message' }}
+          <span *ngIf="isSending" class="loader"></span> {{ isSending ? 'Sending Message...' : 'Send Message' }}
         </button>
       </form>
     </div>
@@ -32,7 +56,7 @@
         
         <div class="info-item">
           <div class="icon-circle">
-            <span class="icon"><img src="/pin-icon.png" alt="Pin Icon"></span> 
+            <img [ngSrc]="'/pin-icon.png'" width="24" height="24" alt="Location Pin">
           </div>
           <div class="info-text">
             <strong>Address</strong>
@@ -42,7 +66,7 @@
 
         <div class="info-item">
           <div class="icon-circle">
-            <span class="icon"><img src="/phone-icon.png" alt="Phone Icon"></span>
+            <img [ngSrc]="'/phone-icon.png'" width="24" height="24" alt="Phone">
           </div>
           <div class="info-text">
             <strong>Phone</strong>
@@ -52,17 +76,17 @@
 
         <div class="info-item">
           <div class="icon-circle">
-            <span class="icon"><img src="/email-icon.png" alt="Email Icon"></span>
+            <img [ngSrc]="'/email-icon.png'" width="24" height="24" alt="Email">
           </div>
           <div class="info-text">
             <strong>Email</strong>
-            <p>filsafe@yahoo.com</p>
+            <p><a href="mailto:filsafe@yahoo.com">filsafe@yahoo.com</a></p>
           </div>
         </div>
 
         <div class="info-item">
           <div class="icon-circle">
-            <span class="icon"><img src="/clock-icon.png" alt="Clock Icon"></span>
+            <img [ngSrc]="'/clock-icon.png'" width="24" height="24" alt="Business Hours">
           </div>
           <div class="info-text">
             <strong>Business Hours</strong>
