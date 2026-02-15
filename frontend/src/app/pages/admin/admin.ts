@@ -178,12 +178,36 @@ export class Admin implements OnInit {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
-        if (type === 'blog') this.newBlog.image = reader.result as string;
-        if (type === 'pImg') this.newProduct.image = reader.result as string;
-        if (type === 'broch') this.newProduct.brochure = reader.result as string;
-        this.cdr.detectChanges();
-      };
+      reader.onload = (e: any) => {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 1200; // Standard for Hero images
+          let width = img.width;
+          let height = img.height;
+
+            if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+
+
+            // Convert to WebP (30% smaller) or JPEG at 0.7 quality
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+
+          if (type === 'blog') this.newBlog.image = compressedBase64;
+          if (type === 'pImg') this.newProduct.image = compressedBase64;
+          if (type === 'broch') this.newProduct.brochure = compressedBase64;
+
+          this.cdr.detectChanges();
+        };
+      }; 
       reader.readAsDataURL(file);
     }
   }
@@ -205,4 +229,6 @@ export class Admin implements OnInit {
     this.newProduct = { name: '', category: 'CCTV', image: '', brochure: '', imageAlt: '' }; 
     this.isEditingProduct = false;
   }
+
+  
 }

@@ -58,7 +58,12 @@
       <span class="service-number">0{{ i + 1 }}</span>
       <h3>{{ post.title }}</h3>
       <p>{{ post.shortDescription }}</p>
-      <a [routerLink]="['/blog', post._id]" class="outline-btn">Read More</a>
+      
+      <a [routerLink]="['/blog', post._id]" 
+        class="outline-btn"
+        [attr.aria-label]="'Read more about ' + post.title">
+        Read More
+      </a>
     </div>
   </div>
 </section>
