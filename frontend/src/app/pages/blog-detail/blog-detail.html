@@ -1,10 +1,5 @@
 <section class="blog-page" *ngIf="post; else notFound">
-  <div 
-    class="blog-hero" 
-    [style.backgroundImage]="'url(' + post.image + ')'"
-    role="img"  
-    [attr.aria-label]="post.imageAlt || post.title">
-    
+  <div class="blog-hero">
     <img [src]="post.image" 
       [alt]="post.imageAlt || post.title"
       class="hero-image-element"
