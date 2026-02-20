@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, Renderer2 } from '@angular/core'; // Added Inject and Renderer2
+import { CommonModule, DOCUMENT } from '@angular/common'; // Added DOCUMENT
 import { FormsModule } from '@angular/forms';
 import emailjs from '@emailjs/browser';
 import { NgOptimizedImage } from '@angular/common';
@@ -21,21 +21,51 @@ export class Contact implements OnInit {
 
   isSending = false;
 
+  constructor(
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
+
   ngOnInit() {
     // Initializing with your specific Public Key
     emailjs.init('KsjdBnGY37yl2sxRl'); 
+    
+    // Set Local Business Schema for the Contact Page
+    this.setLocalBusinessSchema();
+  }
+
+  setLocalBusinessSchema() {
+    const localBusinessSchema = {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Filsafe",
+      "image": "https://filsafe.com/public/FS_LOGO_BG.png", 
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Catleya Street, St. Peter Village, Camuning, Mexico, Pampanga",
+        "addressLocality": "Angeles City",
+        "addressRegion": "Pampanga",
+        "postalCode": "2009",
+        "addressCountry": "PH"
+      },
+      "telephone": "+63 920-932-6741",
+      "url": "https://www.filsafe.shop/contact" 
+    };
+
+    const script = this.renderer.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(localBusinessSchema);
+    this.renderer.appendChild(this.document.head, script);
   }
 
   async sendEmail(e: Event) {
     e.preventDefault();
     this.isSending = true;
 
-    // Use your specific IDs from the EmailJS Dashboard here:
     const SERVICE_ID = 'service_gw1rf2c'; 
     const TEMPLATE_ID = 'template_ysxr4sl';
     const PUBLIC_KEY = 'KsjdBnGY37yl2sxRl';
 
-    // Mapping the data to match your EmailJS Template variables
     const templateParams = {
       from_name: this.formData.from_name,
       reply_to: this.formData.reply_to,
@@ -53,12 +83,9 @@ export class Contact implements OnInit {
       
       console.log('SUCCESS!', response.status, response.text);
       alert('Message sent successfully!');
-      
-      // Clear the form after success
       this.formData = { from_name: '', reply_to: '', phone: '', message: '' };
     } catch (error: any) {
       console.error('FAILED...', error);
-      // Detailed error alert to help you if IDs are still wrong
       alert('Failed to send: ' + (error.text || 'Check your Service/Template IDs'));
     } finally {
       this.isSending = false;
