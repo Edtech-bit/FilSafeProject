@@ -1,14 +1,13 @@
-/* =========================
-   1. VARIABLES & RESET
-   ========================= */
 :root {
-    --electric: #0F2A44;      /* Your Brand Blue */
-    --dark: #0D0D0D;          /* Deep Background */
-    --charcoal: #1A1A1A;      /* Card Background */
-    --steel: #2D2D2D;         /* Borders */
-    --silver: #A0A0A0;        /* Muted Text */
-    --white: #FFFFFF;         /* Pure White */
-    
+    --electric: #0F2A44;
+    --accent-blue: #4A90E2;
+    --dark: #0D0D0D;
+    --white: #FFFFFF;
+    --gray: #475569;
+    --light-bg: #F8FAFC;
+    --navy: #050C16;
+    --yellow: #fbbf24;
+
     --font-heading: 'DM Sans', sans-serif;
     --font-body: 'Lato', sans-serif;
 }
@@ -21,47 +20,42 @@
 
 body {
     font-family: var(--font-body);
-    background: var(--dark);
-    color: var(--white);
-    overflow-x: hidden;
     line-height: 1.6;
 }
 
-/* =========================
-   2. HERO SECTION
-   ========================= */
+/* --- HERO SECTION: WHITE THEME FIX --- */
 .hero {
     margin-top: 75px;
-    min-height: 75vh;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     padding: 4rem 10%;
-    background: var(--dark);
+    background-color: var(--white); /* Prevents the black background */
+    color: var(--electric);
     position: relative;
     overflow: hidden;
 }
 
-/* Background Watermark Text */
 .hero::before {
     content: 'SECURITY';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: var(--font-heading);
+    font-size: clamp(8rem, 15vw, 20rem);
     font-weight: 900;
-    font-size: 20rem;
-    color: var(--electric); 
-    opacity: 0.05;
-    z-index: 0;
+    color: var(--electric);
+    opacity: 0.05; 
     white-space: nowrap;
+    z-index: 0;
 }
 
 .hero-grid {
-    max-width: 1600px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
     position: relative;
@@ -70,254 +64,276 @@ body {
 
 .hero-content h1 {
     font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(3rem, 6vw, 6rem);
-    line-height: 1;
+    font-size: clamp(3rem, 5vw, 4.5rem);
     margin-bottom: 2rem;
-    text-transform: uppercase;
-    letter-spacing: -1px;
+    color: var(--electric);
 }
 
-.hero-content h1 .highlight {
-    color: var(--electric);
-    display: block;
+.highlight {
+    color: var(--accent-blue);
 }
 
 .hero-text {
-    font-size: 1.125rem;
-    color: var(--silver);
-    margin-bottom: 2rem;
-    max-width: 600px;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    max-width: 550px;
+    color: var(--gray);
 }
 
 .hero-tagline {
-    display: inline-block;
-    background: var(--electric);
-    color: var(--white);
-    padding: 1rem 2.5rem;
-    font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: 2px;
-    clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    color: var(--accent-blue);
 }
 
-.hero-image {
-    position: relative;
-    height: 500px;
+/* FIX FOR STRETCHED HERO IMAGE */
+.hero-main-img {
     width: 100%;
-}
-
-.hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border: 3px solid var(--electric);
+    max-width: 450px;
+    height: 400px; /* Matches your HTML attribute */
+    object-fit: cover; /* Prevents stretching */
+    border-bottom: 5px solid var(--accent-blue);
     clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+    display: block;
 }
 
-/* =========================
-   3. STATS SECTION
-   ========================= */
+/* --- STORY SECTION --- */
+.story-section {
+    padding: 8rem 10%;
+    background: var(--light-bg);
+}
+
+.story-container {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.story-subtitle {
+    color: var(--accent-blue);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.story-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    color: #0F172A;
+}
+
+.story-content p {
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+}
+
+.quote-box {
+    background: #EAF2FB;
+    border-left: 6px solid var(--accent-blue);
+    padding: 2rem;
+    border-radius: 8px;
+    font-style: italic;
+    color: #334155;
+}
+
+/* FIX FOR STRETCHED STORY IMAGE */
+.story-img {
+    width: 100%;
+    max-width: 480px;
+    height: 500px; /* Matches your HTML attribute */
+    object-fit: cover; /* Prevents stretching */
+    border-radius: 20px;
+    display: block;
+}
+
+/* --- STATS SECTION --- */
 .stats-section {
-    padding: 0;
-    background: var(--charcoal);
-    border-top: 3px solid var(--electric);
-    border-bottom: 3px solid var(--electric);
+    background: var(--white) !important; 
+    padding: 6rem 0;
 }
 
 .stats-grid {
-    max-width: 1600px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-}
-
-.stat-item {
-    padding: 4rem 3rem;
+    max-width: 1200px;
+    margin: auto;
     text-align: center;
-    border-right: 1px solid var(--steel);
 }
-
-.stat-item:last-child { border-right: none; }
 
 .stat-number {
-    font-family: var(--font-heading);
+    font-size: 5rem;
     font-weight: 800;
-    font-size: 4.5rem;
-    color: var(--electric);
-    line-height: 1;
+    font-family: var(--font-heading);
+    color: var(--electric) !important; 
     margin-bottom: 1rem;
 }
 
 .stat-label {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--silver);
-    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 0.85rem;
+    color: var(--gray) !important; 
 }
 
-/* =========================
-   4. CORE VALUES (CENTERED)
-   ========================= */
+/* --- VALUES SECTION --- */
 .values-section {
-    padding: 8rem 10%;
-    background: var(--dark);
+    padding: 100px 10%;
     text-align: center;
 }
 
 .section-title {
     font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    text-transform: uppercase;
-    margin-bottom: 4rem;
-    position: relative;
-    display: inline-block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--electric);
 }
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 6px;
-    background: var(--electric);
-    clip-path: polygon(0 0, 95% 0, 100% 100%, 0 100%);
+.section-subtitle {
+    color: var(--gray);
+    margin-bottom: 4rem;
 }
 
 .values-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    gap: 30px;
+    max-width: 1100px;
+    margin: auto;
 }
 
 .value-box {
-    background: var(--charcoal);
-    padding: 4rem 3rem;
-    border: 2px solid var(--steel);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
-    transition: all 0.3s ease;
+    background: var(--white);
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: left;
+    transition: 0.3s ease;
 }
 
 .value-box:hover {
-    border-color: var(--electric);
     transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
 }
 
-.value-number {
-    font-family: var(--font-heading);
-    font-size: 3rem;
+.value-num {
+    font-size: 2.5rem;
     font-weight: 800;
     color: var(--electric);
     margin-bottom: 1rem;
 }
 
-/* =========================
-   5. WHAT WE OFFER (CENTERED)
-   ========================= */
-.offerings-section {
-    padding: 8rem 10%;
-    background: var(--charcoal);
-    text-align: center;
-}
-
-.offerings-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border: 2px solid var(--steel);
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.offering-cell {
-    padding: 4rem 2rem;
-    border-right: 2px solid var(--steel);
-    transition: all 0.3s ease;
-}
-
-.offering-cell:last-child { border-right: none; }
-
-.offering-cell:hover { background: rgba(15, 42, 68, 0.2); }
-
-.offering-icon { font-size: 3.5rem; margin-bottom: 1.5rem; display: block; }
-
-.offering-name {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    color: var(--electric);
-    margin-bottom: 1rem;
-}
-
-/* =========================
-   6. CTA SECTION (CLEAN & CENTERED)
-   ========================= */
+/* --- CTA SECTION: GRADIENT & WHITE BUTTON --- */
 .cta-section {
-    padding: 10rem 3rem;
-    background: var(--white); 
+    background: linear-gradient(135deg, #0F1D2E, #1E3A5F);
+    padding: 8rem 2rem;
     text-align: center;
 }
 
 .cta-title {
     font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(2rem, 5vw, 4rem);
-    text-transform: uppercase;
-    color: var(--dark);
+    font-size: 4rem;
     margin-bottom: 3rem;
-    letter-spacing: -1px;
+    color: #FFFFFF !important; 
 }
 
 .cta-btn {
     display: inline-block;
-    background-color: #0F2A44; /* Your Requested Blue */
-    color: #FFFFFF; 
-    padding: 1.2rem 3.5rem;
-    font-family: var(--font-heading);
+    background: #FFFFFF !important; 
+    color: #0F1D2E !important;      
+    padding: 1.3rem 4rem;
     font-weight: 700;
-    font-size: 1.2rem;
+    border-radius: 50px;
     text-decoration: none;
-    border-radius: 4px; 
-    transition: all 0.3s ease;
-    border: 2px solid #0F2A44;
+    transition: 0.3s ease;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 
-.cta-btn:hover {
-    background-color: transparent;
-    color: #0F2A44;
-    transform: translateY(-3px);
+
+
+/* --- FOOTER (Matches your Uploaded Images) --- */
+.footer {
+    background-color: #050C16;
+    color: #ffffff;
+    padding: 80px 10% 40px;
 }
 
-/* =========================
-   7. RESPONSIVE / MOBILE
-   ========================= */
-@media (max-width: 1024px) {
-    .hero-grid { grid-template-columns: 1fr; text-align: center; }
-    .hero-image { display: none; } /* Focus on text for mobile hero */
-    .hero-text { margin: 0 auto 2rem; }
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
 
-    .stats-grid, .values-grid, .offerings-grid {
+.footer-section h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.footer-section h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.footer-section p, .footer-section ul li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 12px;
+}
+
+.footer-section ul li a:hover {
+    color: var(--yellow);
+}
+
+.footer-bottom {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.footer-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 30px;
+}
+
+.copyright-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+    .hero-grid, .story-container, .values-grid, .stats-grid, .footer-container {
         grid-template-columns: 1fr;
     }
 
-    .stat-item, .offering-cell {
-        border-right: none;
-        border-bottom: 2px solid var(--steel);
+    .hero-main-img, .story-img {
+        margin: 0 auto;
+        height: auto; /* Allow flexibility on mobile */
     }
 
-    .hero-content h1 { font-size: 3.5rem; }
-}
-
-@media (max-width: 640px) {
-    .hero { padding: 4rem 1.5rem; }
-    .section-title { font-size: 2.2rem; }
+    .cta-title { font-size: 2.5rem; }
     .stat-number { font-size: 3.5rem; }
 }
