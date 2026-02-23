@@ -207,6 +207,45 @@ html, body {
   }
 
   .nav-links a::after {
-    display: none; /* Hide hover line on mobile for cleaner look */
+    display: none;
   }
+}
+
+/* --- LOADERS & SPINNERS --- */
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #fbbf24; /* FilSafe Yellow/Gold */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    display: block;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Full screen loader overlay for initial load and clicks */
+.filsafe-loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 0.4s ease;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
 }

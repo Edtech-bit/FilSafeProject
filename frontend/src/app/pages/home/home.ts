@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef, Inject, Renderer2 } from '@angular/core'; // Added Inject and Renderer2
-import { CommonModule, DOCUMENT } from '@angular/common'; // Added DOCUMENT
-import { RouterModule } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef, Inject, Renderer2 } from '@angular/core'; 
+import { CommonModule, DOCUMENT } from '@angular/common'; 
+import { RouterModule, Router } from '@angular/router'; 
 import { BlogService, Blog } from '../../services/blog';
 
 @Component({
@@ -11,22 +11,24 @@ import { BlogService, Blog } from '../../services/blog';
   styleUrl: './home.css'
 })
 export class Home implements OnInit {
+  // Properties used in home.html
   blogs: Blog[] = [];
+  loadingBlogs: boolean = true; 
 
   constructor(
     private blogService: BlogService,
     private cdr: ChangeDetectorRef,
-    private renderer: Renderer2, // Used to safely manipulate the DOM
-    @Inject(DOCUMENT) private document: Document // Access the site's HTML document
+    private renderer: Renderer2, 
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document 
   ) {}
 
   ngOnInit(): void {
     this.loadData();
-    this.setSchemas(); // Call the schema setup
+    this.setSchemas();
   }
 
   setSchemas() {
-    // 1. Organization Schema
     const orgSchema = {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -35,7 +37,6 @@ export class Home implements OnInit {
       "logo": "https://filsafe.shop/FS_LOGO_BG.png"
     };
 
-    // 2. Local Business Schema
     const localBusinessSchema = {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
@@ -64,20 +65,37 @@ export class Home implements OnInit {
   }
 
   loadData() {
+    this.loadingBlogs = true; 
     this.blogService.getPosts().subscribe({
       next: (data) => {
-        console.log('Success! Blogs received:', data);
         this.blogs = data;
+        this.loadingBlogs = false; 
         this.cdr.detectChanges(); 
       },
       error: (err) => {
-        console.error('Data failed to load on refresh:', err);
+        console.error('Data failed to load:', err);
+        this.loadingBlogs = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
+  // Method to navigate with the global loader
+  goToBlog(id: string | undefined) {
+    if (!id) return;
+    
+    const loader = this.document.getElementById('app-loader');
+    if (loader) {
+      loader.classList.remove('hidden'); 
+    }
+    
+    setTimeout(() => {
+      this.router.navigate(['/blog', id]);
+    }, 300);
+  }
+
   scrollToServices() {
-    const element = document.getElementById('services');
+    const element = this.document.getElementById('services');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }

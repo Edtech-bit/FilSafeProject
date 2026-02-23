@@ -1,7 +1,7 @@
 <section class="hero" style="background-image: url('/HomeBanner.jpg')">
   <span class="visually-hidden">
-      Modern security operations center monitoring commercial property
-    </span>
+    Modern security operations center monitoring commercial property
+  </span>
   <div class="hero-overlay">
     <div class="hero-badge">Trusted Security Since 2015</div>
     <h1>Keeping You Safe, Every Step of the Way.</h1>
@@ -51,19 +51,27 @@
     <div class="header-line"></div>
   </div>
 
-  <div *ngFor="let post of blogs; let i = index" class="split-row" [class.reverse]="i % 2 !== 0">
-    <div class="split-image" [style.backgroundImage]="'url(' + post.image + ')'"></div>
-    
-    <div class="split-text">
-      <span class="service-number">0{{ i + 1 }}</span>
-      <h3>{{ post.title }}</h3>
-      <p>{{ post.shortDescription }}</p>
+  <div *ngIf="loadingBlogs" style="padding: 50px 0;">
+    <div class="loader"></div>
+    <p style="text-align: center; color: #0F2A44; font-weight: 600;">Loading security insights...</p>
+  </div>
+
+  <div *ngIf="!loadingBlogs">
+    <div *ngFor="let post of blogs; let i = index" class="split-row" [class.reverse]="i % 2 !== 0">
+      <div class="split-image" [style.backgroundImage]="'url(' + post.image + ')'"></div>
       
-      <a [routerLink]="['/blog', post._id]" 
-        class="outline-btn"
-        [attr.aria-label]="'Read more about ' + post.title">
-        Read More
-      </a>
+      <div class="split-text">
+        <span class="service-number">0{{ i + 1 }}</span>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.shortDescription }}</p>
+        
+        <button (click)="goToBlog(post._id)" 
+          class="outline-btn"
+          style="cursor: pointer; background: transparent; border: 1px solid #fbbf24;"
+          [attr.aria-label]="'Read more about ' + post.title">
+          Read More
+        </button>
+      </div>
     </div>
   </div>
 </section>
