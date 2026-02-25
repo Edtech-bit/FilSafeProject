@@ -1,39 +1,27 @@
-<section class="hero">
-    <div class="hero-grid">
-        <div class="hero-content">
-            <h1>ABOUT <span class="highlight">FILSAFE</span></h1>
-            <p class="hero-text">
-                FilSafe provides reliable security products and services nationwide in the Philippines. 
-                We offer high-quality vaults, CCTV systems, and intrusion alarms.
-            </p>
-            <div class="hero-tagline">SECURE. PROTECTED. FILSAFE.</div>
-        </div>
-        <div class="hero-image-wrapper">
-            <img [ngSrc]="'bluevault.jpg'" 
-                 alt="FilSafe high-security blue vault" 
-                 class="hero-main-img" 
-                 width="480" 
-                 height="400" 
-                 priority>
-        </div>
-    </div>
-</section>
-
 <section class="story-section">
     <div class="story-container">
         <div class="story-content">
             <span class="story-subtitle">OUR STORY</span>
             <h2 class="story-title">Built on Trust, Driven by Innovation</h2>
             <p>
-                Filsafe Enterprises was founded with a singular mission: to provide reliable, 
-                cutting-edge security solutions that give our clients complete peace of mind.
-                What started as a small family business in the Philippines has grown into one 
-                of the nation's most trusted names in comprehensive security systems.
+                Our the company was established last April 6 2002,
+                FILSAFE ENTERPRISES counts on the wealth of expertise
+                of its staff and personnel gained through decades of
+                experience in the security equipment field both here in
+                the Philippines and abroad; experience gained through
+                years of exposure to all phases of Production,
+                Engineering and Design, and Customer Service.
             </p>
 
             <p>
-                From high-quality vaults and sophisticated CCTV systems to advanced intrusion alarms, 
-                we deliver professional installation and ongoing maintenance you can depend on.
+                The Company envisages in providing high quality
+                products and services at reasonable prices and to actively
+                participate and play a major role towards the
+                establishment of a Security Equipment Manufacturing
+                Standard for the Philippines. Our vision of providing the
+                right product for the need of our clientele remains our
+                primary goal and we are totally committed towards this
+                end.
             </p>
 
             <div class="quote-box">
@@ -45,61 +33,82 @@
         </div>
 
         <div class="story-image-wrapper">
-            <img [ngSrc]="'workers.jpg'" 
-                 alt="Modern security vault" 
-                 class="story-img" 
-                 width="500" 
-                 height="500">
+            <div class="slider-container">
+                <button class="nav-btn prev" (click)="prevImage()">&#10094;</button>
+                <div class="slider-image-viewport" (click)="nextImage()">
+                    <img [ngSrc]="images[currentIndex]" 
+                         alt="FilSafe project installation" 
+                         class="story-img slider-img" 
+                         width="500" 
+                         height="500">
+                </div>
+                <button class="nav-btn next" (click)="nextImage()">&#10095;</button>
+                <div class="dots-container">
+                    <span *ngFor="let dot of images; let i = index" 
+                          class="dot" 
+                          [class.active]="i === currentIndex">
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="stats-section">
-    <div class="stats-grid">
-        <div class="stat-item">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">Years of Experience</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Support Available</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Nationwide Coverage</div>
-        </div>
-    </div>
-</section>
-
-<section class="values-section">
+<section class="clients-section">
     <div class="section-header">
-        <h2 class="section-title">Our Core Values</h2>
-        <p class="section-subtitle">The principles that guide everything we do</p>
+        <h2 class="section-title">Meet Our Clients</h2>
+        <p class="section-subtitle">Trusted by leading financial institutions and commercial enterprises across the Philippines.</p>
     </div>
 
-    <div class="values-grid">
-        <div class="value-box">
-            <span class="value-num">01</span>
-            <h3>Security First</h3>
-            <p>We prioritize safety and security in every solution, ensuring your property is protected with the latest technology.</p>
+    <div class="clients-container">
+        <div class="client-category">
+            <h3>Major Banking Partners</h3>
+            <div class="client-tags">
+                <a href="https://www.landbank.com" target="_blank" class="tag bank">LANDBANK</a>
+                <a href="https://www.securitybank.com" target="_blank" class="tag bank">Security Bank</a>
+                <a href="https://www.dbp.ph" target="_blank" class="tag bank">DBP</a>
+                <a href="https://www.bpi.com.ph" target="_blank" class="tag bank">BPI</a>
+                <a href="https://www.maybank.com.ph" target="_blank" class="tag bank">Maybank</a>
+                <a href="https://www.unionbankph.com" target="_blank" class="tag bank">UnionBank</a>
+                <a href="https://www.citysavings.com.ph" target="_blank" class="tag bank">CitySavings</a>
+            </div>
         </div>
 
-        <div class="value-box">
-            <span class="value-num">02</span>
-            <h3>Reliability</h3>
-            <p>Count on us for dependable service and meticulous installation that stands the test of time.</p>
-        </div>
+        <div class="clients-grid">
+            <div class="client-card">
+                <h4>Rural Banks</h4>
+                <ul>
+                    <li>Rural Bank of Angeles (All 32 Branches)</li>
+                    <li>Porac Bank</li>
+                    <li>GRBank</li>
+                    <li>Rang-ay Bank</li>
+                    <li>Rural Bank of Bayombong, Inc.</li>
+                    <li>Rural Bank of San Luis</li>
+                    <li>Rural Bank of Guinobatan, Inc.</li>
+                    <li>San Bartolome Rural Bank</li>
+                </ul>
+            </div>
 
-        <div class="value-box">
-            <span class="value-num">03</span>
-            <h3>Innovation</h3>
-            <p>Modern security technology for effective solutions. We stay ahead of threats with cutting-edge systems.</p>
-        </div>
+            <div class="client-card">
+                <h4>Commercial & Major Projects</h4>
+                <ul>
+                    <li><strong>Major CCTV:</strong> Jenra Malls (Angeles, Sindalan, Dau, Apalit), Infinity</li>
+                    <li><strong>Retail:</strong> Tropicalhut (29 Restaurants, 6 Supermarkets)</li>
+                    <li><strong>Automotive:</strong> Toyota (Pampanga, Cebu, Bacolod, Makati), Laus Group, Hyundai, BMW</li>
+                    <li><strong>Residential:</strong> Over 1,000 Private Residences</li>
+                </ul>
+            </div>
 
-        <div class="value-box">
-            <span class="value-num">04</span>
-            <h3>Excellence</h3>
-            <p>Exceptional quality from consultation to setup. We deliver professional service that exceeds expectations.</p>
+            <div class="client-card">
+                <h4>Cooperatives & Pawnshops</h4>
+                <ul>
+                    <li>NatCoo & Golden Group Cooperative</li>
+                    <li>Tanglaw Pawnshop</li>
+                    <li>Jewel House Pawnshop</li>
+                    <li>C-Pawnshops (Unicorn, Pistahan, Rodriguez)</li>
+                    <li>Apung Monica Multi-Purpose Cooperative</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
