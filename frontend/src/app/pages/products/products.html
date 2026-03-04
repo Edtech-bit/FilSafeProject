@@ -1,48 +1,160 @@
-<div class="showcase-container" style="padding: 40px; font-family: 'Segoe UI', sans-serif; background: #fcfcfc; min-height: 100vh;">
-  <h1 style="text-align: center; color: #d32f2f; margin-bottom: 10px;">Our Security Solutions</h1>
-  <p style="text-align: center; color: #666; margin-bottom: 30px;">Professional grade protection for your home and business.</p>
+<div class="showcase-container">
 
-  <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 40px;">
-    <button *ngFor="let cat of categories" 
-            (click)="filterByCategory(cat)"
-            [style.background]="selectedCategory === cat ? '#d32f2f' : '#eee'"
-            [style.color]="selectedCategory === cat ? 'white' : '#333'"
-            style="padding: 10px 25px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-      {{cat}}
-    </button>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-brand">
+      <div class="brand-shield">
+        <svg width="16" height="18" viewBox="0 0 18 20" fill="none">
+          <path d="M9 0L0 3.5V9.5C0 14.74 3.84 19.65 9 21C14.16 19.65 18 14.74 18 9.5V3.5L9 0Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <span class="brand-name">FILSAFE</span>
+      <span class="brand-sep">/</span>
+      <span class="brand-sub">Security Solutions</span>
+    </div>
+    <a class="top-bar-cta" href="#">Get a Quote →</a>
   </div>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;">
-    <div *ngFor="let product of filteredProducts" 
-         (click)="openBrochure(product.brochure)"
-         class="product-card-hover"
-         style="background: white; border: 1px solid #eee; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s;">
-      
-      <div style="position: relative; background: #f9f9f9; height: 220px; display: flex; align-items: center; justify-content: center;">
-        <img [src]="product.image" 
-             [alt]="product.imageAlt"
-             style="max-width: 100%; max-height: 100%; object-fit: contain;">
-        <div class="hover-hint">View Brochure</div>
+  <!-- Page Body: Sidebar + Content -->
+  <div class="page-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <div class="sidebar-hero">
+        <p class="sidebar-eyebrow">Product Catalog</p>
+        <h1 class="sidebar-title">Our<br>Security<br>Solutions</h1>
+        <p class="sidebar-desc">Professional grade protection engineered for homes and businesses.</p>
       </div>
-      
-      <div style="padding: 20px; text-align: center;">
-        <span style="font-size: 11px; color: #d32f2f; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;">{{product.category}}</span>
-        <h3 style="margin: 8px 0; color: #222; font-size: 18px;">{{product.name}}</h3>
-        <div style="margin-top: 15px; border-top: 1px solid #f0f0f0; padding-top: 15px;">
-           <button style="background: #333; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: 600;">Details & Brochure</button>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-filters">
+        <p class="sidebar-filter-label">Category</p>
+        <div class="sidebar-filter-list">
+          <button *ngFor="let cat of categories"
+                  (click)="filterByCategory(cat)"
+                  [class.active]="selectedCategory === cat"
+                  class="sidebar-filter-btn">
+            <span class="sfb-dot"></span>
+            <span class="sfb-text">{{cat}}</span>
+            <span class="sfb-arrow">→</span>
+          </button>
         </div>
       </div>
-    </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-stats">
+        <div class="sstat">
+          <span class="sstat-num">500+</span>
+          <span class="sstat-label">Installations</span>
+        </div>
+        <div class="sstat">
+          <span class="sstat-num">24/7</span>
+          <span class="sstat-label">Support</span>
+        </div>
+        <div class="sstat">
+          <span class="sstat-num">3</span>
+          <span class="sstat-label">Product Lines</span>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Content Header -->
+      <div class="content-header">
+        <div class="content-header-left">
+          <span class="content-showing">Showing</span>
+          <span class="content-count">{{filteredProducts.length}} products</span>
+          <span class="content-cat" *ngIf="selectedCategory !== 'All'">in {{selectedCategory}}</span>
+        </div>
+        <div class="content-header-rule"></div>
+      </div>
+
+      <!-- Grid -->
+      <div class="products-grid">
+        <div *ngFor="let product of filteredProducts; let i = index"
+             (click)="openBrochure(product.brochure)"
+             class="product-card"
+             [style.animation-delay]="(i * 50) + 'ms'">
+
+          <div class="card-img-wrap">
+            <img [src]="product.image" [alt]="product.imageAlt" class="card-img">
+            <div class="card-overlay">
+              <span class="card-overlay-text">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                View Brochure
+              </span>
+            </div>
+            <span class="card-badge">{{product.category}}</span>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">{{product.name}}</h3>
+            <div class="card-action">
+              <span class="card-action-label">Details & Brochure</span>
+              <span class="card-action-icon">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="filteredProducts.length === 0" class="empty-state">
+        <div class="empty-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+        </div>
+        <p class="empty-title">No products found</p>
+        <p class="empty-sub">Nothing listed under <em>{{selectedCategory}}</em> yet.</p>
+      </div>
+
+    </main>
+
   </div>
 
-  <div *ngIf="filteredProducts.length === 0" style="text-align: center; padding: 100px; color: #999;">
-    <h3>No products available in the {{selectedCategory}} category.</h3>
-  </div>
-
+  <!-- Modal -->
   <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <button class="close-btn" (click)="closeModal()">&times;</button>
-      <img [src]="selectedBrochure" [alt]="'Product Brochure'" style="width: 100%; height: auto; border-radius: 8px;">
+    <div class="modal-frame" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-header-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+          </div>
+          <span>Product Brochure</span>
+        </div>
+        <button class="modal-close" (click)="closeModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img [src]="selectedBrochure" alt="Product Brochure" class="modal-img">
+      </div>
     </div>
   </div>
+
 </div>
