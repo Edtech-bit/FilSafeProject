@@ -9,5 +9,9 @@ import { RouterModule } from '@angular/router';
   styleUrl: './services.css',
 })
 export class Services {
+  activeService: string = 'cctv';
 
+  setService(id: string) {
+    this.activeService = this.activeService === id ? '' : id;
+}
 }

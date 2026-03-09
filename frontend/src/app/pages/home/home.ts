@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, Inject, Renderer2 } from '@angula
 import { CommonModule, DOCUMENT } from '@angular/common'; 
 import { RouterModule, Router } from '@angular/router'; 
 import { BlogService, Blog } from '../../services/blog';
+import { ViewChild, ElementRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-home',
@@ -11,9 +13,10 @@ import { BlogService, Blog } from '../../services/blog';
   styleUrl: './home.css'
 })
 export class Home implements OnInit {
-  // Properties used in home.html
   blogs: Blog[] = [];
-  loadingBlogs: boolean = true; 
+  loadingBlogs: boolean = true;
+
+  @ViewChild('blogTrack') blogTrack!: ElementRef;
 
   constructor(
     private blogService: BlogService,
@@ -80,7 +83,6 @@ export class Home implements OnInit {
     });
   }
 
-  // Method to navigate with the global loader
   goToBlog(id: string | undefined) {
     if (!id) return;
     
@@ -99,5 +101,10 @@ export class Home implements OnInit {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  scrollBlogs(direction: number) {
+    const track = this.blogTrack.nativeElement;
+    track.scrollBy({ left: direction * 360, behavior: 'smooth' });
   }
 }

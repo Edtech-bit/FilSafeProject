@@ -1,11 +1,11 @@
-<section class="hero" style="background-image: url('/HomeBanner.jpg')">
+<section class="hero" style="background-image: url('/HomeBanner.png')">
   <span class="visually-hidden">
     Modern security operations center monitoring commercial property
   </span>
   <div class="hero-overlay">
     <div class="hero-badge">Trusted Security Since 2015</div>
     <h1>Keeping You Safe, Every Step of the Way.</h1>
-    <p class="hero-subtitle">Comprehensive Security Solutions for Homes and Businesses.</p>
+    <p class="hero-subtitle">Comprehensive Security Solutions for Homes and Businesses</p>
     <button class="primary-cta" (click)="scrollToServices()">Explore Our Solutions</button>
   </div>
 </section>
@@ -13,65 +13,97 @@
 <section class="intro-section"></section>
 
 <section class="home-services">
-  <div class="container">
-    <div class="section-title">
-      <span class="badge">What We Do</span>
-      <h2>Our Expert Services</h2>
-    </div>
 
-    <div class="services-scroll">
-      <div class="service-tile cctv-home" routerLink="/services/cctv" aria-label="View our CCTV Systems and surveillance solutions">
-        <div class="service-overlay">
+  <div class="hs-header">
+    <span class="hs-badge">What We Do</span>
+    <h2 class="hs-title">Our Expert Services</h2>
+  </div>
+
+  <div class="hs-grid">
+
+    <!-- CCTV -->
+    <a class="hs-tile" routerLink="/services/cctv" aria-label="View CCTV Systems">
+      <div class="hs-tile__bg cctv-home"></div>
+      <div class="hs-tile__content">
+        <span class="hs-tile__num">01</span>
+        <div class="hs-tile__text">
           <h3>CCTV Systems</h3>
           <p>Advanced surveillance & monitoring</p>
         </div>
+        <span class="hs-tile__arrow">→</span>
       </div>
+      <div class="hs-tile__sweep"></div>
+    </a>
 
-      <div class="service-tile alarm-home" routerLink="/services/alarm" aria-label="Learn about our Intrusion Alarm and rapid response systems">
-        <div class="service-overlay">
+    <!-- Alarms -->
+    <a class="hs-tile" routerLink="/services/alarm" aria-label="View Intrusion Alarms">
+      <div class="hs-tile__bg alarm-home"></div>
+      <div class="hs-tile__content">
+        <span class="hs-tile__num">02</span>
+        <div class="hs-tile__text">
           <h3>Intrusion Alarms</h3>
           <p>Instant alerts & rapid response</p>
         </div>
+        <span class="hs-tile__arrow">→</span>
       </div>
+      <div class="hs-tile__sweep"></div>
+    </a>
 
-      <div class="service-tile vault-home" routerLink="/services/vault" aria-label="Explore Premium Vaults for asset protection">
-        <div class="service-overlay">
+    <!-- Vaults -->
+    <a class="hs-tile" routerLink="/services/vault" aria-label="View Premium Vaults">
+      <div class="hs-tile__bg vault-home"></div>
+      <div class="hs-tile__content">
+        <span class="hs-tile__num">03</span>
+        <div class="hs-tile__text">
           <h3>Premium Vaults</h3>
           <p>High-security asset protection</p>
         </div>
+        <span class="hs-tile__arrow">→</span>
       </div>
+      <div class="hs-tile__sweep"></div>
+    </a>
 
-    </div>
   </div>
+
 </section>
 
-<section class="premium-services" id="services">
-  <div class="section-header">
-    <h2>Our Specialized Solutions</h2>
-    <div class="header-line"></div>
+<section class="blog-section" id="services">
+
+  <div class="blog-section__header">
+    <div class="blog-section__header-left">
+      <span class="blog-section__badge">Security Insights</span>
+      <h2 class="blog-section__title">Latest From Our Blog</h2>
+    </div>
+    <div class="blog-section__nav">
+      <button class="blog-nav-btn" (click)="scrollBlogs(-1)" aria-label="Previous">&#8592;</button>
+      <button class="blog-nav-btn" (click)="scrollBlogs(1)" aria-label="Next">&#8594;</button>
+    </div>
   </div>
 
-  <div *ngIf="loadingBlogs" style="padding: 50px 0;">
-    <div class="loader"></div>
-    <p style="text-align: center; color: #0F2A44; font-weight: 600;">Loading security insights...</p>
+  <div *ngIf="loadingBlogs" class="blog-loader">
+    <p>Loading security insights...</p>
   </div>
 
-  <div *ngIf="!loadingBlogs">
-    <div *ngFor="let post of blogs; let i = index" class="split-row" [class.reverse]="i % 2 !== 0">
-      <div class="split-image" [style.backgroundImage]="'url(' + post.image + ')'"></div>
-      
-      <div class="split-text">
-        <span class="service-number">0{{ i + 1 }}</span>
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.shortDescription }}</p>
-        
-        <button (click)="goToBlog(post._id)" 
-          class="outline-btn"
-          style="cursor: pointer; background: transparent; border: 1px solid #fbbf24;"
-          [attr.aria-label]="'Read more about ' + post.title">
-          Read More
-        </button>
+  <div *ngIf="!loadingBlogs" class="blog-track" #blogTrack>
+    <div
+      *ngFor="let post of blogs; let i = index"
+      class="blog-card"
+      (click)="goToBlog(post._id)"
+      (keydown.enter)="goToBlog(post._id)"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="'Read: ' + post.title"
+    >
+      <div class="blog-card__img" [style.backgroundImage]="'url(' + post.image + ')'">
+        <div class="blog-card__img-fade"></div>
+      </div>
+      <div class="blog-card__body">
+        <span class="blog-card__num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+        <h3 class="blog-card__title">{{ post.title }}</h3>
+        <p class="blog-card__desc">{{ post.shortDescription }}</p>
+        <span class="blog-card__cta">Read Article →</span>
       </div>
     </div>
   </div>
+
 </section>

@@ -1,43 +1,68 @@
-<section class="premium-services-overlay">
-  <div class="service-card cctv-bg">
-    <span class="visually-hidden">
-      CCTV Surveillance
-    </span>
-    <div class="card-overlay">
-      <div class="card-content">
-        <span class="service-number">01</span>
-        <h3>CCTV Surveillance</h3>
-        <p>High-definition monitoring with AI-powered threat detection and 24/7 remote access.</p>
-        <button class="outline-btn-white" routerLink="/services/cctv">Explore Technology</button>
-      </div>
+<section class="services-bento">
+
+  <div class="sb-header">
+    <div class="sb-header__left">
+      <span class="sb-badge">What We Offer</span>
+      <h2 class="sb-title">Our Services</h2>
     </div>
+    <p class="sb-header__sub">Three pillars of professional security — built for homes, businesses, and enterprises.</p>
   </div>
 
-  <div class="service-card alarm-bg">
-    <span class="visually-hidden">
-      Intrusion Alarm System
-    </span>
-    <div class="card-overlay">
-      <div class="card-content">
-        <span class="service-number">02</span>
-        <h3>Intrusion Alarms</h3>
-        <p>Smart sensors and silent alarms that notify law enforcement the second entry is detected.</p>
-        <button class="outline-btn-white" routerLink="/services/alarm">View Systems</button>
+  <div class="sb-grid">
+
+    <!-- Large card — CCTV -->
+    <a class="sb-card sb-card--large cctv-bg" routerLink="/services/cctv" aria-label="CCTV Surveillance">
+      <div class="sb-card__overlay"></div>
+      <div class="sb-card__body">
+        <div class="sb-card__top">
+          <span class="sb-card__num">01</span>
+          <span class="sb-card__tag">Surveillance</span>
+        </div>
+        <div class="sb-card__bottom">
+          <h3 class="sb-card__title">CCTV Systems</h3>
+          <p class="sb-card__desc">High-definition monitoring with AI-powered threat detection and 24/7 remote access from any device.</p>
+          <span class="sb-card__cta">Explore Technology <span class="sb-arrow">→</span></span>
+        </div>
       </div>
+    </a>
+
+    <!-- Small cards column -->
+    <div class="sb-col">
+
+      <!-- Alarms -->
+      <a class="sb-card alarm-bg" routerLink="/services/alarm" aria-label="Intrusion Alarms">
+        <div class="sb-card__overlay"></div>
+        <div class="sb-card__body">
+          <div class="sb-card__top">
+            <span class="sb-card__num">02</span>
+            <span class="sb-card__tag">Detection</span>
+          </div>
+          <div class="sb-card__bottom">
+            <h3 class="sb-card__title">Intrusion Alarms</h3>
+            <p class="sb-card__desc">Smart sensors that notify law enforcement the second entry is detected.</p>
+            <span class="sb-card__cta">View Systems <span class="sb-arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Vaults -->
+      <a class="sb-card vault-bg" routerLink="/services/vault" aria-label="Premium Vaults">
+        <div class="sb-card__overlay"></div>
+        <div class="sb-card__body">
+          <div class="sb-card__top">
+            <span class="sb-card__num">03</span>
+            <span class="sb-card__tag">Protection</span>
+          </div>
+          <div class="sb-card__bottom">
+            <h3 class="sb-card__title">Premium Vaults</h3>
+            <p class="sb-card__desc">Reinforced steel, fire-resistant engineering and biometric access.</p>
+            <span class="sb-card__cta">Secure Your Assets <span class="sb-arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
     </div>
+
   </div>
 
-  <div class="service-card vault-bg">
-    <span class="visually-hidden">
-      Digital Safe
-    </span>
-    <div class="card-overlay">
-      <div class="card-content">
-        <span class="service-number">03</span>
-        <h3>Premium Vaults</h3>
-        <p>Reinforced steel, fire-resistant engineering, and biometrics. Ultimate physical protection.</p>
-        <button class="outline-btn-white" routerLink="/services/vault">Secure Your Assets</button>
-      </div>
-    </div>
-  </div>
 </section>
