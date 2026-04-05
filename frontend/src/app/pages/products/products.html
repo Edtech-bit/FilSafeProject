@@ -29,20 +29,32 @@
 
       <div class="sidebar-divider"></div>
 
-      <div class="sidebar-filters">
-        <p class="sidebar-filter-label">Category</p>
-        <div class="sidebar-filter-list">
-          <button *ngFor="let cat of categories"
-                  (click)="filterByCategory(cat)"
-                  [class.active]="selectedCategory === cat"
-                  class="sidebar-filter-btn">
-            <span class="sfb-dot"></span>
-            <span class="sfb-text">{{cat}}</span>
-            <span class="sfb-arrow">→</span>
-          </button>
-        </div>
+     <div class="sidebar-filters">
+  <p class="sidebar-filter-label">Category</p>
+  <div class="sidebar-filter-list">
+    <ng-container *ngFor="let cat of categories">
+      
+      <button (click)="filterByCategory(cat)"
+        [class.active]="selectedCategory === cat"
+        class="sidebar-filter-btn">
+  <span class="sfb-dot"></span>
+  <span class="sfb-text">{{cat}}</span>
+  <span class="sfb-arrow-icon">→</span>
+</button>
+
+      <div class="vault-sub-menu" *ngIf="cat === 'Vault' && selectedCategory === 'Vault'">
+        <button *ngFor="let sub of vaultSubCategories"
+                (click)="filterBySubCategory(sub)"
+                [class.active-sub]="selectedSubCategory === sub"
+                class="sub-filter-btn">
+          <span class="sub-dot"></span>
+          <span class="sub-text">{{sub}}</span>
+        </button>
       </div>
 
+    </ng-container>
+  </div>
+</div>
       <div class="sidebar-divider"></div>
 
       <div class="sidebar-stats">

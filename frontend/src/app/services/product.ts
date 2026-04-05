@@ -9,6 +9,7 @@ export interface Product {
   image: string;
   brochure: string;
   imageAlt: string;
+  subCategory?: String;
 }
 
 @Injectable({ providedIn: 'root' })

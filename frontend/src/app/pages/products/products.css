@@ -690,3 +690,158 @@
     padding: 0 20px;
   }
 }
+
+.vault-sub-menu {
+  margin-left: 20px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-left: 1px solid var(--border);
+  padding-left: 12px;
+}
+
+
+.sub-text {
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.sub-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 50%;
+}
+
+
+.vault-sub-menu {
+  margin-left: 20px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-left: 1px solid var(--border);
+  padding-left: 12px;
+
+  /* Add these */
+  animation: slideDown 0.22s cubic-bezier(0.34, 1.2, 0.64, 1);
+  overflow: hidden;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   SUB-CATEGORY HOVER & ACTIVE EFFECTS
+═══════════════════════════════════════ */
+
+.vault-sub-menu {
+  margin-left: 22px; 
+  margin-top: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 2px solid var(--border); 
+  padding-left: 12px;
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sub-filter-btn {
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.25s ease; 
+  width: 100%;
+}
+
+/* Hover Effect */
+.sub-filter-btn:hover {
+  background: var(--bg);
+  transform: translateX(6px); 
+}
+
+.sub-filter-btn:hover .sub-text {
+  color: var(--text); 
+}
+
+.sub-filter-btn:hover .sub-dot {
+  background: var(--text-3);
+  transform: scale(1.4); 
+}
+
+/* Active Selection State */
+.sub-filter-btn.active-sub {
+  background: var(--red-light); 
+}
+
+.sub-filter-btn.active-sub .sub-text {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.sub-filter-btn.active-sub .sub-dot {
+  background: var(--red);
+  box-shadow: 0 0 8px rgba(192, 57, 43, 0.6); 
+  transform: scale(1.2);
+}
+
+/* Re-defining the animation for a smoother entrance */
+@keyframes slideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+    max-height: 0;
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+    max-height: 500px; 
+  }
+}
+
+/* Base Arrow Style */
+.sfb-arrow-icon {
+  font-size: 16px;
+  color: var(--text-3); 
+  display: inline-block; 
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.18s ease;
+  margin-left: auto; 
+}
+
+.sidebar-filter-btn.active .sfb-arrow-icon {
+  transform: rotate(90deg);
+  color: var(--red); 
+}
+
+.sidebar-filter-btn:hover .sfb-arrow-icon {
+  color: var(--text);
+  transform: translateX(3px); 
+}
+
+.sidebar-filter-btn.active:hover .sfb-arrow-icon {
+  transform: rotate(90deg) scale(1.1);
+}
+
+.vault-sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.2s ease;
+}
+
+/* This targets the menu when Vault is active */
+.sidebar-filter-btn.active + .vault-sub-menu {
+  max-height: 500px; 
+  opacity: 1;
+}
