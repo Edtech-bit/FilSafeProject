@@ -7,18 +7,25 @@ import { ProductService, Product } from '../../services/product';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './products.html',
-  styleUrls: ['./products.css'] // Fixed: should be styleUrls
+  styleUrls: ['./products.css']
 })
 export class Products implements OnInit {
   allProducts: Product[] = [];
   filteredProducts: Product[] = [];
-  
-  
+
   // Main Navigation Categories
   categories = ['All', 'CCTV', 'Vault', 'Alarm'];
-  
+
   // Sub-Categories for your 5 Vault Models
-  vaultSubCategories = ['Bank Vault Model', 'Vault Doors Model', 'Safety Deposit Box', 'Cash Safes - 4820', 'Cash Safe - 2016'];
+  vaultSubCategories = ['Bank Vault Model', 'Vault Doors Model', 'Safety Deposit Box', 'Cash Safe - 4820', 'Cash Safe - 2016'];
+
+private subCategoryNameMap: Record<string, { include: string; exclude?: string }> = {
+  'Bank Vault Model':   { include: 'Bank Vault' },
+  'Vault Doors Model':  { include: 'Vault Door', exclude: 'Bank' },  // ← excludes "Bank Vault Door"
+  'Safety Deposit Box': { include: 'Safety Deposit' },
+  'Cash Safes - 4820':  { include: '4820' },
+  'Cash Safe - 2016':   { include: '2016' }
+};
 
   selectedCategory = 'All';
   selectedSubCategory = 'All';
@@ -41,8 +48,7 @@ export class Products implements OnInit {
       next: (data) => {
         this.ngZone.run(() => {
           this.allProducts = [...data];
-          this.applyFilters(); // Apply initial filter
-          
+          this.applyFilters();
           this.cdr.markForCheck();
           this.cdr.detectChanges();
         });
@@ -50,27 +56,17 @@ export class Products implements OnInit {
       error: (err) => console.error("Error loading FilSafe products:", err)
     });
   }
-
-  /**
-   * Called when clicking main categories (All, CCTV, Vault, Alarm)
-   */
   filterByCategory(cat: string) {
-  // If the user clicks the same category that's already open, "toggle" it closed
-  if (this.selectedCategory === cat && cat !== 'All') {
-    this.selectedCategory = 'All';
-    this.selectedSubCategory = 'All';
-  } else {
-    // Otherwise, open the new category
-    this.selectedCategory = cat;
-    this.selectedSubCategory = 'All';
+    if (this.selectedCategory === cat && cat !== 'All') {
+      this.selectedCategory = 'All';
+      this.selectedSubCategory = 'All';
+    } else {
+      this.selectedCategory = cat;
+      this.selectedSubCategory = 'All';
+    }
+    this.applyFilters();
   }
-  
-  this.applyFilters();
-}
 
-  /**
-   * Called when clicking Vault sub-categories (Vault Doors, Cash Safes, etc.)
-   */
   filterBySubCategory(sub: string) {
     this.selectedSubCategory = sub;
     this.applyFilters();
@@ -87,15 +83,20 @@ export class Products implements OnInit {
       temp = temp.filter(p => p.category === this.selectedCategory);
     }
 
-    // Step 2: Filter by Sub-Category (Only if "Vault" is active)
-    if (this.selectedCategory === 'Vault' && this.selectedSubCategory !== 'All') {
-      // Ensure Product interface has subCategory
-      temp = temp.filter(p => p.subCategory === this.selectedSubCategory);
-    }
+    // Step 2: Filter by Sub-Category (Only if 'Vault' is active)
+    // Update the filter inside applyFilters()
+if (this.selectedCategory === 'Vault' && this.selectedSubCategory !== 'All') {
+  const map = this.subCategoryNameMap[this.selectedSubCategory];
+  temp = temp.filter(p => {
+    const nameLower = p.name.toLowerCase();
+    const matchesSubCategory = p.subCategory === this.selectedSubCategory;
+    const matchesInclude = map && nameLower.includes(map.include.toLowerCase());
+    const matchesExclude = map?.exclude && nameLower.includes(map.exclude.toLowerCase());
+    return matchesSubCategory || (matchesInclude && !matchesExclude);
+  });
+}
 
     this.filteredProducts = temp;
-    
-    // Manually trigger change detection for standard UI updates
     this.cdr.detectChanges();
   }
 

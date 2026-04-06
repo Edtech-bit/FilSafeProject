@@ -88,7 +88,7 @@
       </div>
 
       <!-- Grid -->
-      <div class="products-grid">
+      <div class="products-grid" id = "products-grid">
         <div *ngFor="let product of filteredProducts; let i = index"
              (click)="openBrochure(product.brochure)"
              class="product-card"
