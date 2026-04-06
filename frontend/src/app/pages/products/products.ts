@@ -21,10 +21,10 @@ export class Products implements OnInit {
 
 private subCategoryNameMap: Record<string, { include: string; exclude?: string }> = {
   'Bank Vault Model':   { include: 'Bank Vault' },
-  'Vault Doors Model':  { include: 'Vault Door', exclude: 'Bank' },  // ← excludes "Bank Vault Door"
+  'Vault Doors Model':  { include: 'Vault Door', exclude: 'Bank' },  
   'Safety Deposit Box': { include: 'Safety Deposit' },
-  'Cash Safes - 4820':  { include: '4820' },
-  'Cash Safe - 2016':   { include: '2016' }
+  'Cash Safe - 4820':  { include: '4820', exclude: '2016'},
+  'Cash Safe - 2016':   { include: '2016', exclude: '4820'}
 };
 
   selectedCategory = 'All';
@@ -44,18 +44,22 @@ private subCategoryNameMap: Record<string, { include: string; exclude?: string }
   }
 
   loadData() {
-    this.productService.getProducts().subscribe({
-      next: (data) => {
-        this.ngZone.run(() => {
-          this.allProducts = [...data];
-          this.applyFilters();
-          this.cdr.markForCheck();
-          this.cdr.detectChanges();
-        });
-      },
-      error: (err) => console.error("Error loading FilSafe products:", err)
-    });
-  }
+  this.productService.getProducts().subscribe({
+    next: (data) => {
+      this.ngZone.run(() => {
+        this.allProducts = [...data];
+        
+        // ADD THIS LINE
+        console.log('RAW PRODUCTS FROM API:', JSON.stringify(data.map(p => p.name)));
+        
+        this.applyFilters();
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      });
+    },
+    error: (err) => console.error("Error loading FilSafe products:", err)
+  });
+}
   filterByCategory(cat: string) {
     if (this.selectedCategory === cat && cat !== 'All') {
       this.selectedCategory = 'All';
@@ -75,30 +79,40 @@ private subCategoryNameMap: Record<string, { include: string; exclude?: string }
   /**
    * Centralized filtering logic
    */
-  applyFilters() {
-    let temp = [...this.allProducts];
+ applyFilters() {
+  let temp = [...this.allProducts];
 
-    // Step 1: Filter by Main Category
-    if (this.selectedCategory !== 'All') {
-      temp = temp.filter(p => p.category === this.selectedCategory);
-    }
+  // ADD THIS - log all products to see exact names
+  console.log('All products:', this.allProducts.map(p => ({ name: p.name, category: p.category, subCategory: p.subCategory })));
 
-    // Step 2: Filter by Sub-Category (Only if 'Vault' is active)
-    // Update the filter inside applyFilters()
-if (this.selectedCategory === 'Vault' && this.selectedSubCategory !== 'All') {
-  const map = this.subCategoryNameMap[this.selectedSubCategory];
-  temp = temp.filter(p => {
-    const nameLower = p.name.toLowerCase();
-    const matchesSubCategory = p.subCategory === this.selectedSubCategory;
-    const matchesInclude = map && nameLower.includes(map.include.toLowerCase());
-    const matchesExclude = map?.exclude && nameLower.includes(map.exclude.toLowerCase());
-    return matchesSubCategory || (matchesInclude && !matchesExclude);
-  });
-}
-
-    this.filteredProducts = temp;
-    this.cdr.detectChanges();
+  if (this.selectedCategory !== 'All') {
+    temp = temp.filter(p => p.category === this.selectedCategory);
   }
+
+  if (this.selectedCategory === 'Vault' && this.selectedSubCategory !== 'All') {
+    const map = this.subCategoryNameMap[this.selectedSubCategory];
+    
+    // ADD THIS - log what's being filtered
+    console.log('Selected sub:', this.selectedSubCategory);
+    console.log('Map:', map);
+    console.log('Temp before filter:', temp.map(p => p.name));
+
+    temp = temp.filter(p => {
+      const nameLower = p.name.toLowerCase();
+      const matchesSubCategory = p.subCategory === this.selectedSubCategory;
+      const matchesInclude = map && nameLower.includes(map.include.toLowerCase());
+      const matchesExclude = map?.exclude && nameLower.includes(map.exclude.toLowerCase());
+      
+      // ADD THIS - log each product check
+      console.log(`Product: "${p.name}" | include: ${matchesInclude} | exclude: ${matchesExclude}`);
+      
+      return matchesSubCategory || (matchesInclude && !matchesExclude);
+    });
+  }
+
+  this.filteredProducts = temp;
+  this.cdr.detectChanges();
+}
 
   openBrochure(url: string) {
     if (!url) return;
