@@ -35,7 +35,17 @@
           [(ngModel)]="formData.phone" 
           placeholder="09XX XXX XXXX" 
           required 
-          pattern="^[0-9]*$" /> <label for="message">Message</label>
+          pattern="^[0-9]*$" /> 
+          
+        <label for="subject">Subject</label>
+        <input 
+          id="subject"
+          type="text" 
+          name="subject" 
+          [(ngModel)]="formData.subject" 
+          placeholder="Product inquiry (Optional)" />
+
+        <label for="message">Message</label>
         <textarea 
           id="message"
           name="message" 

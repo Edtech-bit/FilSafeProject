@@ -845,3 +845,37 @@
   max-height: 500px; 
   opacity: 1;
 }
+
+/* ═══════════════════════════════════════
+   CTA INQUIRE BUTTON
+═══════════════════════════════════════ */
+.modal-footer {
+  padding: 16px 24px;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cta-inquire-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0f172a;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+}
+
+.cta-inquire-btn:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.35);
+}

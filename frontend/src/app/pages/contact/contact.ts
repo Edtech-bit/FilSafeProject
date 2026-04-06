@@ -3,6 +3,7 @@ import { CommonModule, DOCUMENT } from '@angular/common'; // Added DOCUMENT
 import { FormsModule } from '@angular/forms';
 import emailjs from '@emailjs/browser';
 import { NgOptimizedImage } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -16,6 +17,7 @@ export class Contact implements OnInit {
     from_name: '',
     reply_to: '',
     phone: '',
+    subject: '',
     message: ''
   };
 
@@ -23,12 +25,19 @@ export class Contact implements OnInit {
 
   constructor(
     private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     // Initializing with your specific Public Key
     emailjs.init('KsjdBnGY37yl2sxRl'); 
+
+    this.route.queryParams.subscribe(params => {
+      if (params['subject']) {
+        this.formData.subject = params['subject'];
+      }
+    });
     
     // Set Local Business Schema for the Contact Page
     this.setLocalBusinessSchema();
@@ -70,6 +79,7 @@ export class Contact implements OnInit {
       from_name: this.formData.from_name,
       reply_to: this.formData.reply_to,
       phone: this.formData.phone,
+      subject: this.formData.subject,
       message: this.formData.message
     };
 
@@ -83,7 +93,7 @@ export class Contact implements OnInit {
       
       console.log('SUCCESS!', response.status, response.text);
       alert('Message sent successfully!');
-      this.formData = { from_name: '', reply_to: '', phone: '', message: '' };
+      this.formData = { from_name: '', reply_to: '', phone: '', subject: '', message: '' };
     } catch (error: any) {
       console.error('FAILED...', error);
       alert('Failed to send: ' + (error.text || 'Check your Service/Template IDs'));

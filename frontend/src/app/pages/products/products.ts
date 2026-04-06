@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService, Product } from '../../services/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -32,11 +33,13 @@ private subCategoryNameMap: Record<string, { include: string; exclude?: string }
 
   isModalOpen = false;
   selectedBrochure = '';
+  selectedProduct: Product | null = null;
 
   constructor(
     private productService: ProductService,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -114,9 +117,10 @@ private subCategoryNameMap: Record<string, { include: string; exclude?: string }
   this.cdr.detectChanges();
 }
 
-  openBrochure(url: string) {
-    if (!url) return;
-    this.selectedBrochure = url;
+  openBrochure(product: Product) {
+    if (!product || !product.brochure) return;
+    this.selectedProduct = product;
+    this.selectedBrochure = product.brochure;
     this.isModalOpen = true;
     document.body.style.overflow = 'hidden';
     this.cdr.detectChanges();
@@ -125,7 +129,13 @@ private subCategoryNameMap: Record<string, { include: string; exclude?: string }
   closeModal() {
     this.isModalOpen = false;
     this.selectedBrochure = '';
+    this.selectedProduct = null;
     document.body.style.overflow = 'auto';
     this.cdr.detectChanges();
+  }
+
+  inquireProduct(productName: string) {
+    this.closeModal();
+    this.router.navigate(['/contact'], { queryParams: { subject: productName } });
   }
 }
